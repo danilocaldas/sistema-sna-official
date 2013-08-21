@@ -199,13 +199,19 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
     @Override
     public void excluir() {
         if (frm.getTbProducao().getSelectedRow() != -1) {
-            producaoImplements.delete(formToProducao());
-            JOptionPane.showMessageDialog(frm, "Prestador excluido", "Excluir", JOptionPane.INFORMATION_MESSAGE);
-            disableButtonsToSaveAction();
-            limparCampos();
-            desabilitarCampoDoFrm();
-            limparTabela(producoes);
-            frm.searchProducaoGeral();
+            String msg = "Deseja realmente excluir esta produção?";
+            String titulo = "Confimação";
+            int yes = JOptionPane.showConfirmDialog(frm, msg, titulo, JOptionPane.YES_NO_OPTION);
+            if (yes == JOptionPane.YES_OPTION) {
+                producaoImplements.delete(formToProducao());
+                JOptionPane.showMessageDialog(frm, "Produção excluída", "Excluir", JOptionPane.INFORMATION_MESSAGE);
+                disableButtonsToSaveAction();
+                limparCampos();
+                desabilitarCampoDoFrm();
+                limparTabela(producoes);
+                frm.searchProducaoGeral();
+            }
+
         } else {
             JOptionPane.showMessageDialog(frm, "Selecione um registro!");
         }
@@ -270,8 +276,7 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
         } else if (e.getActionCommand().equals("Modificar")) {
             prepararAlterar();
         } else if (e.getActionCommand().equals("Excluir")) {
-            confirmarExclusão();
-            //excluir();
+           excluir();
         } else if (e.getActionCommand().equals("Salvar")) {
             salvar();
             //desabilitarBtSalvar();
