@@ -270,8 +270,8 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
         } else if (e.getActionCommand().equals("Modificar")) {
             prepararAlterar();
         } else if (e.getActionCommand().equals("Excluir")) {
-
-            excluir();
+            confirmarExclusão();
+            //excluir();
         } else if (e.getActionCommand().equals("Salvar")) {
             salvar();
             //desabilitarBtSalvar();
@@ -291,6 +291,17 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
             pesquisarProdPorProfissional();
             pesquisarProducaoGeral();
         }
+    }
+    
+    public void confirmarExclusão(){
+       String msg = "Deseja realmente excluir esta produção?";
+       String titulo = "Confimação";
+       int yes = JOptionPane.showConfirmDialog(frm, msg, titulo, JOptionPane.YES_NO_OPTION);
+       if(yes == JOptionPane.YES_OPTION){
+           excluir();
+           //return true;
+       }
+       //return false;
     }
     
     public void pesquisarProducaoGeral(){
