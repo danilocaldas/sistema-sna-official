@@ -353,7 +353,7 @@ public class ProcedimentoFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btPesquisarProcedimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarProcedimentoActionPerformed
-        searchProcedimentos();
+        
     }//GEN-LAST:event_btPesquisarProcedimentoActionPerformed
 
     /**
