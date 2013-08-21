@@ -39,6 +39,7 @@ public class ProcedimentoActionControl implements ControlInterface, ActionListen
         frm.getBtAlterarProcedimento().addActionListener(this);
         frm.getBtFinalizarProcedimento().addActionListener(this);
         frm.getBtLimpar().addActionListener(this);
+        frm.getBtPesquisarProcedimento().addActionListener(this);
 
     }
 
@@ -100,35 +101,48 @@ public class ProcedimentoActionControl implements ControlInterface, ActionListen
 
     @Override
     public void alterar() {
-        if(verificarCampos()){
-        procedimentoImplements.update(formToProcedimento());
-        JOptionPane.showMessageDialog(frm, "Procedimento Alterado", "Alterar", JOptionPane.INFORMATION_MESSAGE);
-        disableButtonsToSaveAction();
-        limparCampos();
-        desabilitarCampoDoFrm();
-        limparTabela(procedimentos);
-        frm.searchProcedimentos();
+        if (verificarCampos()) {
+            procedimentoImplements.update(formToProcedimento());
+            JOptionPane.showMessageDialog(frm, "Procedimento Alterado", "Alterar", JOptionPane.INFORMATION_MESSAGE);
+            disableButtonsToSaveAction();
+            limparCampos();
+            desabilitarCampoDoFrm();
+            limparTabela(procedimentos);
+            frm.searchProcedimentos();
         }
     }
 
     @Override
     public void salvar() {
-        if(verificarCampos()){
-        procedimentoImplements.save(formToProcedimento());
-        JOptionPane.showMessageDialog(frm, "Procedimento Salvo", "Salvar", JOptionPane.INFORMATION_MESSAGE);
-        disableButtonsToSaveAction();
-        limparCampos();
-        desabilitarCampoDoFrm();
+        if (verificarCampos() || verifarCodigo()) {
+            procedimentoImplements.save(formToProcedimento());
+            JOptionPane.showMessageDialog(frm, "Procedimento Salvo", "Salvar", JOptionPane.INFORMATION_MESSAGE);
+            disableButtonsToSaveAction();
+            limparCampos();
+            desabilitarCampoDoFrm();
+            limparTabela(procedimentos);
+            frm.searchProcedimentos();
         }
     }
 
     @Override
     public void excluir() {
-        procedimentoImplements.delete(formToProcedimento());
-        JOptionPane.showMessageDialog(frm, "Procedimento Excluído", "Excluir", JOptionPane.INFORMATION_MESSAGE);
-        disableButtonsToSaveAction();
-        limparCampos();
-        desabilitarCampoDoFrm();
+        if (frm.getTbProcedimento().getSelectedRow() != -1) {
+            String msg = "Deseja realmente excluir este procedimento?";
+            String titulo = "Confimação";
+            int yes = JOptionPane.showConfirmDialog(frm, msg, titulo, JOptionPane.YES_NO_OPTION);
+            if (yes == JOptionPane.YES_OPTION) {
+                procedimentoImplements.delete(formToProcedimento());
+                JOptionPane.showMessageDialog(frm, "Procedimento Excluído", "Excluir", JOptionPane.INFORMATION_MESSAGE);
+                disableButtonsToSaveAction();
+                limparCampos();
+                desabilitarCampoDoFrm();
+                limparTabela(procedimentos);
+                frm.searchProcedimentos();
+            }
+        } else {
+            JOptionPane.showMessageDialog(frm, "Selecione um registro!");
+        }
     }
 
     private Procedimento formToProcedimento() {
@@ -137,7 +151,7 @@ public class ProcedimentoActionControl implements ControlInterface, ActionListen
             procedimento.setId(Long.parseLong(frm.getLabelId().getText()));
         }
         procedimento.setNome(frm.getTxtNomeProcedimento().getText());
-        procedimento.setCodigo(Integer.parseInt(String.valueOf(frm.getFtxtCodigo().getText())));
+        procedimento.setCodigo(Integer.parseInt(frm.getFtxtCodigo().getText()));
 
         return procedimento;
     }
@@ -152,18 +166,22 @@ public class ProcedimentoActionControl implements ControlInterface, ActionListen
             excluir();
         } else if (e.getActionCommand().equals("Salvar")) {
             salvar();
-            desabilitarBtSalvar();
+            //desabilitarBtSalvar();
         } else if (e.getActionCommand().equals("Alterar")) {
             alterar();
-            desabilitarBtAlterar();
+            //desabilitarBtAlterar();
         } else if (e.getActionCommand().equals("Finalizar")) {
             desabilitarBtAlterar();
-            desabilitarBtSalvar();
+            //desabilitarBtSalvar();
             disableButtonsToSaveAction();
             limparCampos();
             desabilitarCampoDoFrm();
         } else if (e.getActionCommand().equals("Limpar")) {
             limparTabela(procedimentos);
+        } else if (e.getActionCommand().equals("Listar Procedimentos")) {
+            limparTabela(procedimentos);
+            frm.searchProcedimentos();
+
         }
     }
 
@@ -188,13 +206,24 @@ public class ProcedimentoActionControl implements ControlInterface, ActionListen
     private void desabilitarBtAlterar() {
         frm.getBtAlterarProcedimento().setEnabled(false);
     }
-    
-    private boolean verificarCampos(){
-        if(!frm.getTxtNomeProcedimento().getText().equals("") && !frm.getFtxtCodigo().getText().equals("")){
+
+    private boolean verifarCodigo() {
+        try {
+            if (Integer.parseInt(frm.getFtxtCodigo().getText()) > 0) {
+                return true;
+            }
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(frm, "Preeencha o Código!", "Error" + ex, JOptionPane.ERROR_MESSAGE);
+        }
+        return false;
+    }
+
+    private boolean verificarCampos() {
+        if (!frm.getTxtNomeProcedimento().getText().equals("") && !frm.getFtxtCodigo().getText().equals("")) {
             return true;
-        }else{
-            JOptionPane.showMessageDialog(frm, "Falta preencher algum campo no formulário!","Error", JOptionPane.ERROR_MESSAGE);
-            return false; 
+        } else {
+            JOptionPane.showMessageDialog(frm, "Falta preencher algum campo no formulário!", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
 }

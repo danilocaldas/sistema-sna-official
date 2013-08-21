@@ -4,8 +4,8 @@
  */
 package br.com.sna.control;
 
-import br.com.sna.model.service.FuncionarioImplements;
 import br.com.sna.model.dao.Funcionario;
+import br.com.sna.model.service.FuncionarioImplements;
 import br.com.sna.view.FuncionarioFrm;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
