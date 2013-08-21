@@ -40,7 +40,7 @@ public class ProducaoFrm extends javax.swing.JFrame {
         initComponents();
         producaoActionControl = new ProducaoActionControl(this);
         producaoImplements = new ProducaoImplements();
-        searchProducaoGeral();
+//        searchProducaoGeral();
     }
 
     public void searchProducaoProfissionalPeriodo() {
@@ -244,7 +244,7 @@ public class ProducaoFrm extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                         .addComponent(jDateChooserDataEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -420,7 +420,7 @@ public class ProducaoFrm extends javax.swing.JFrame {
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Inclusão", jPanel7);
@@ -485,7 +485,7 @@ public class ProducaoFrm extends javax.swing.JFrame {
                 .addComponent(radioPeriodo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(radioFuncionario)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados para pesquisa"));
@@ -560,7 +560,6 @@ public class ProducaoFrm extends javax.swing.JFrame {
         jToolBar2.add(jSeparator2);
 
         btFinalizarManu.setText("Finalizar");
-        btFinalizarManu.setEnabled(false);
         btFinalizarManu.setFocusable(false);
         btFinalizarManu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btFinalizarManu.setMaximumSize(new java.awt.Dimension(93, 40));
@@ -589,7 +588,7 @@ public class ProducaoFrm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -632,22 +631,15 @@ public class ProducaoFrm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void radioPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioPeriodoActionPerformed
-        if (jDateDe.getDate() == null || jDataAte.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "Preencha as datas!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            producaoActionControl.limparTabela(producoes);
-            searchProducaoProfissionalPeriodo();
-        }
+
     }//GEN-LAST:event_radioPeriodoActionPerformed
 
     private void radioFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioFuncionarioActionPerformed
-        producaoActionControl.limparTabela(producoes);
-        searchProducaoProfissional();
     }//GEN-LAST:event_radioFuncionarioActionPerformed
 
     private void radioTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioTodosActionPerformed
-        producaoActionControl.limparTabela(producoes);
-        searchProducaoGeral();
+//        producaoActionControl.limparTabela(producoes);
+//        searchProducaoGeral();
     }//GEN-LAST:event_radioTodosActionPerformed
 
     /**
