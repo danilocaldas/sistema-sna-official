@@ -12,7 +12,6 @@ import br.com.sna.model.service.FuncionarioImplements;
 import br.com.sna.model.service.PrestadorImplements;
 import br.com.sna.model.service.ProcedimentoImplements;
 import br.com.sna.model.service.ProducaoImplements;
-
 import br.com.sna.view.ProducaoFrm;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,7 +48,9 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
         listarFuncionarios();
         listarPrestadores();
         listarProcedimentos();
+        
         attachListener();
+        
     }
 
     @Override
@@ -237,8 +238,6 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
             frm.getBoxProcedimento().addItem(procedimentos.get(i).getNome());
         }
     }
-    
-   
 
     public void listarFuncionarios() {
         funcionarios = funcionarioImplements.listFun("%%");
@@ -271,7 +270,7 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
         } else if (e.getActionCommand().equals("Modificar")) {
             prepararAlterar();
         } else if (e.getActionCommand().equals("Excluir")) {
-            
+
             excluir();
         } else if (e.getActionCommand().equals("Salvar")) {
             salvar();
@@ -287,6 +286,40 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
             disableButtonsToSaveAction();
             limparCampos();
             desabilitarCampoDoFrm();
+        } else if (e.getActionCommand().equals("Pesquisar")) {
+            pesquisarProdPorPeriodoProfissional();
+            pesquisarProdPorProfissional();
+            pesquisarProducaoGeral();
+        }
+    }
+    
+    public void pesquisarProducaoGeral(){
+        if(frm.getRadioTodos().isSelected()){
+            limparTabela(producoes);
+            frm.searchProducaoGeral();
+        }
+    }
+    
+    public void pesquisarProdPorProfissional(){
+        if(frm.getRadioFuncionario().isSelected()){
+            limparTabela(producoes);
+            frm.searchProducaoProfissional();
+        }
+    }
+
+    public void pesquisarProdPorPeriodoProfissional() {
+        if (frm.getRadioPeriodo().isSelected() && verificarDatasPesquisa()) {
+            limparTabela(producoes);
+            frm.searchProducaoProfissionalPeriodo();
+        }
+    }
+
+    public boolean verificarDatasPesquisa() {
+        if (frm.getjDateDe().getDate() == null || frm.getjDataAte().getDate() == null) {
+            JOptionPane.showMessageDialog(frm, "As datas devem ser preenchidas!");
+            return false;
+        } else {
+            return true;
         }
     }
 
@@ -306,5 +339,4 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
             frm.getFtxtQuantidade().setText("");
         }
     }
-     
 }
