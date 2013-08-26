@@ -7,6 +7,7 @@ package br.com.sna.control;
 import br.com.sna.model.dao.Procedimento;
 import br.com.sna.model.service.ProcedimentoImplements;
 import br.com.sna.view.ProcedimentoFrm;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -28,10 +29,12 @@ public class ProcedimentoActionControl implements ControlInterface, ActionListen
         this.frm = frm;
         procedimentoImplements = new ProcedimentoImplements();
         attachListener();
+        frm.setResizable(false);
+        frm.getTbProcedimento().setSelectionBackground(Color.RED);
     }
 
     @Override
-    public void attachListener() {
+    public final void attachListener() {
         frm.getBtIncluirProcedimento().addActionListener(this);
         frm.getBtPrepararAlterarProcedimento().addActionListener(this);
         frm.getBtExcluirProcedimento().addActionListener(this);
@@ -63,6 +66,7 @@ public class ProcedimentoActionControl implements ControlInterface, ActionListen
 
     @Override
     public void limparCampos() {
+        frm.getLabelId().setText("");
         frm.getTxtNomeProcedimento().setText("");
         frm.getFtxtCodigo().setText("");
     }
@@ -85,7 +89,7 @@ public class ProcedimentoActionControl implements ControlInterface, ActionListen
             enableButtonsToSaveAction();
             habilitarCamposDoFrm();
             habilitarBtAlterar();
-            desabilitarBtSalvar();
+           
         } else {
             JOptionPane.showMessageDialog(frm, "Selecione um registro!", "Alterar", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -96,7 +100,7 @@ public class ProcedimentoActionControl implements ControlInterface, ActionListen
         enableButtonsToSaveAction();
         habilitarCamposDoFrm();
         habilitarBtSalvar();
-        desabilitarBtAlterar();
+       
     }
 
     @Override
@@ -139,6 +143,9 @@ public class ProcedimentoActionControl implements ControlInterface, ActionListen
                 desabilitarCampoDoFrm();
                 limparTabela(procedimentos);
                 frm.searchProcedimentos();
+            }else if(yes == JOptionPane.NO_OPTION){
+                limparCampos();
+                limparTabela(procedimentos);
             }
         } else {
             JOptionPane.showMessageDialog(frm, "Selecione um registro!");
@@ -166,16 +173,17 @@ public class ProcedimentoActionControl implements ControlInterface, ActionListen
             excluir();
         } else if (e.getActionCommand().equals("Salvar")) {
             salvar();
-            //desabilitarBtSalvar();
+
         } else if (e.getActionCommand().equals("Alterar")) {
             alterar();
-            //desabilitarBtAlterar();
+
         } else if (e.getActionCommand().equals("Finalizar")) {
             desabilitarBtAlterar();
-            //desabilitarBtSalvar();
+            desabilitarBtSalvar();
             disableButtonsToSaveAction();
             limparCampos();
             desabilitarCampoDoFrm();
+            limparTabela(procedimentos);
         } else if (e.getActionCommand().equals("Limpar")) {
             limparTabela(procedimentos);
         } else if (e.getActionCommand().equals("Listar Procedimentos")) {

@@ -7,6 +7,7 @@ package br.com.sna.view;
 import br.com.sna.control.ProducaoActionControl;
 import br.com.sna.model.dao.Producao;
 import br.com.sna.model.service.ProducaoImplements;
+import java.awt.Color;
 import java.sql.Date;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -40,7 +41,9 @@ public class ProducaoFrm extends javax.swing.JFrame {
         initComponents();
         producaoActionControl = new ProducaoActionControl(this);
         producaoImplements = new ProducaoImplements();
-//        searchProducaoGeral();
+
+        
+        
     }
 
     public void searchProducaoProfissionalPeriodo() {
@@ -115,7 +118,7 @@ public class ProducaoFrm extends javax.swing.JFrame {
         grupo1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
-        jPanel7 = new javax.swing.JPanel();
+        painelInclusao = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         boxPrestador = new javax.swing.JComboBox();
@@ -143,7 +146,7 @@ public class ProducaoFrm extends javax.swing.JFrame {
         btFinalizar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         labelId = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
+        painelManuntencao = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbProducao = new javax.swing.JTable();
         jPanel9 = new javax.swing.JPanel();
@@ -376,20 +379,20 @@ public class ProducaoFrm extends javax.swing.JFrame {
 
         jLabel7.setText("Identificação da Produção:");
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        javax.swing.GroupLayout painelInclusaoLayout = new javax.swing.GroupLayout(painelInclusao);
+        painelInclusao.setLayout(painelInclusaoLayout);
+        painelInclusaoLayout.setHorizontalGroup(
+            painelInclusaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelInclusaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(painelInclusaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelInclusaoLayout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
+                    .addGroup(painelInclusaoLayout.createSequentialGroup()
+                        .addGroup(painelInclusaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, painelInclusaoLayout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(18, 18, 18)
                                 .addComponent(labelId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -400,22 +403,22 @@ public class ProducaoFrm extends javax.swing.JFrame {
                     .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        painelInclusaoLayout.setVerticalGroup(
+            painelInclusaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelInclusaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelInclusaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(labelId, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(painelInclusaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(painelInclusaoLayout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(painelInclusaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -423,7 +426,7 @@ public class ProducaoFrm extends javax.swing.JFrame {
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("Inclusão", jPanel7);
+        jTabbedPane2.addTab("Inclusão", painelInclusao);
 
         tbProducao.setModel(tmProducao);
         tbProducao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -559,35 +562,35 @@ public class ProducaoFrm extends javax.swing.JFrame {
         jToolBar2.add(btImprimir);
         jToolBar2.add(jSeparator2);
 
-        btFinalizarManu.setText("Finalizar");
+        btFinalizarManu.setText("Sair");
         btFinalizarManu.setFocusable(false);
         btFinalizarManu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btFinalizarManu.setMaximumSize(new java.awt.Dimension(93, 40));
         btFinalizarManu.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(btFinalizarManu);
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        javax.swing.GroupLayout painelManuntencaoLayout = new javax.swing.GroupLayout(painelManuntencao);
+        painelManuntencao.setLayout(painelManuntencaoLayout);
+        painelManuntencaoLayout.setHorizontalGroup(
+            painelManuntencaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelManuntencaoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelManuntencaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
+                    .addGroup(painelManuntencaoLayout.createSequentialGroup()
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
+                    .addGroup(painelManuntencaoLayout.createSequentialGroup()
                         .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 9, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+        painelManuntencaoLayout.setVerticalGroup(
+            painelManuntencaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelManuntencaoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(painelManuntencaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
@@ -597,7 +600,7 @@ public class ProducaoFrm extends javax.swing.JFrame {
                 .addGap(46, 46, 46))
         );
 
-        jTabbedPane2.addTab("Manuntenção", jPanel8);
+        jTabbedPane2.addTab("Manuntenção", painelManuntencao);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -638,8 +641,7 @@ public class ProducaoFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_radioFuncionarioActionPerformed
 
     private void radioTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioTodosActionPerformed
-//        producaoActionControl.limparTabela(producoes);
-//        searchProducaoGeral();
+
     }//GEN-LAST:event_radioTodosActionPerformed
 
     /**
@@ -714,8 +716,6 @@ public class ProducaoFrm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
@@ -724,6 +724,8 @@ public class ProducaoFrm extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JLabel labelId;
+    private javax.swing.JPanel painelInclusao;
+    private javax.swing.JPanel painelManuntencao;
     private javax.swing.JRadioButton radioFuncionario;
     private javax.swing.JRadioButton radioPeriodo;
     private javax.swing.JRadioButton radioTodos;
@@ -929,4 +931,22 @@ public class ProducaoFrm extends javax.swing.JFrame {
     public void setRadioTodos(javax.swing.JRadioButton radioTodos) {
         this.radioTodos = radioTodos;
     }
+
+    public javax.swing.JPanel getPainelInclusao() {
+        return painelInclusao;
+    }
+
+    public void setPainelInclusao(javax.swing.JPanel painelInclusao) {
+        this.painelInclusao = painelInclusao;
+    }
+
+    public javax.swing.JPanel getPainelManuntencao() {
+        return painelManuntencao;
+    }
+
+    public void setPainelManuntencao(javax.swing.JPanel painelManuntencao) {
+        this.painelManuntencao = painelManuntencao;
+    }
+    
+    
 }

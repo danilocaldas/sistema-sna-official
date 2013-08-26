@@ -4,9 +4,10 @@
  */
 package br.com.sna.control;
 
-import br.com.sna.model.service.PrestadorImplements;
 import br.com.sna.model.dao.Prestador;
+import br.com.sna.model.service.PrestadorImplements;
 import br.com.sna.view.PrestadorFrm;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -26,10 +27,12 @@ public class PrestadorActionControl implements ControlInterface, ActionListener 
         this.frm = frm;
         prestadorImplements = new PrestadorImplements();
         attachListener();
+        frm.getTbPrestador().setSelectionBackground(Color.RED);
+        frm.setResizable(false);
     }
 
     @Override
-    public void attachListener() {
+    public final void attachListener() {
         frm.getBtIncluirPrestador().addActionListener(this);
         frm.getBtPrepararAlterarPrestador().addActionListener(this);
         frm.getBtExcluirPrestador().addActionListener(this);
@@ -143,13 +146,21 @@ public class PrestadorActionControl implements ControlInterface, ActionListener 
     @Override
     public void excluir() {
         if (frm.getTbPrestador().getSelectedRow() != -1) {
-            prestadorImplements.delete(formToPrestador());
-            JOptionPane.showMessageDialog(frm, "Prestador excluido", "Excluir", JOptionPane.INFORMATION_MESSAGE);
-            disableButtonsToSaveAction();
-            limparCampos();
-            desabilitarCampoDoFrm();
-            limparTabela(prestadores);
-            frm.searchPrestadores();
+            String msg = "Deseja realmente excluir este prestador?";
+            String titulo = "Confimação";
+            int yes = JOptionPane.showConfirmDialog(frm, msg, titulo, JOptionPane.YES_NO_OPTION);
+            if (yes == JOptionPane.YES_OPTION) {
+                prestadorImplements.delete(formToPrestador());
+                JOptionPane.showMessageDialog(frm, "Prestador excluido", "Excluir", JOptionPane.INFORMATION_MESSAGE);
+                disableButtonsToSaveAction();
+                limparCampos();
+                desabilitarCampoDoFrm();
+                limparTabela(prestadores);
+                frm.searchPrestadores();
+            }else if(yes == JOptionPane.NO_OPTION){
+                limparCampos();
+                limparTabela(prestadores);
+            }
         } else {
             JOptionPane.showMessageDialog(frm, "Selecione um registro!");
         }
@@ -169,7 +180,7 @@ public class PrestadorActionControl implements ControlInterface, ActionListener 
         }
         prestador.setNome(frm.getTxtNomePrestador().getText());
         prestador.setCnes(Integer.parseInt(String.valueOf(frm.getFtxtCnes().getText())));
-        
+
         return prestador;
     }
 
@@ -194,6 +205,7 @@ public class PrestadorActionControl implements ControlInterface, ActionListener 
             desabilitarBtSalvar();
             disableButtonsToSaveAction();
             limparCampos();
+            limparTabela(prestadores);
             desabilitarCampoDoFrm();
         }
     }

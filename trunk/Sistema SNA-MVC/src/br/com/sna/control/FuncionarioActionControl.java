@@ -7,6 +7,7 @@ package br.com.sna.control;
 import br.com.sna.model.dao.Funcionario;
 import br.com.sna.model.service.FuncionarioImplements;
 import br.com.sna.view.FuncionarioFrm;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -28,9 +29,11 @@ public class FuncionarioActionControl implements ActionListener {
         this.frm = frm;
         funcionarioImplements = new FuncionarioImplements();
         attachListener();
+        frm.getTbFuncionario().setSelectionBackground(Color.red);
+        frm.setResizable(false);
     }
 
-    public void attachListener() {
+    public final void attachListener() {
         frm.getBtPrepararAlterarFuncionario().addActionListener(this);
         frm.getBtAlterar().addActionListener(this);
         frm.getBtIncluirFuncionario().addActionListener(this);
@@ -92,7 +95,7 @@ public class FuncionarioActionControl implements ActionListener {
             desabilitarBtAlterar();
             desabilitarBtSalvar();
             disableButtonsToSaveAction();
-
+            limparTabela(funcionarios);
             limparCampos();
             desabilitarCampoDoFrm();
         }
@@ -159,13 +162,21 @@ public class FuncionarioActionControl implements ActionListener {
 
     private void excluir() {
         if (frm.getTbFuncionario().getSelectedRow() != -1) {
-            funcionarioImplements.delete(formToFuncionario());
-            JOptionPane.showMessageDialog(frm, "Funcionario excluido", "Excluir", JOptionPane.INFORMATION_MESSAGE);
-            disableButtonsToSaveAction();
-            limparCampos();
-            desabilitarCampoDoFrm();
-            limparTabela(funcionarios);
-            frm.searchFuncionario();
+            String msg = "Deseja realmente excluir este funcionário?";
+            String titulo = "Confimação";
+            int yes = JOptionPane.showConfirmDialog(frm, msg, titulo, JOptionPane.YES_NO_OPTION);
+            if (yes == JOptionPane.YES_OPTION) {
+                funcionarioImplements.delete(formToFuncionario());
+                JOptionPane.showMessageDialog(frm, "Funcionario excluido", "Excluir", JOptionPane.INFORMATION_MESSAGE);
+                disableButtonsToSaveAction();
+                limparCampos();
+                desabilitarCampoDoFrm();
+                limparTabela(funcionarios);
+                frm.searchFuncionario();
+            }else if (yes == JOptionPane.NO_OPTION){
+                limparCampos();
+                limparTabela(funcionarios);
+            }
         } else {
             JOptionPane.showMessageDialog(frm, "Selecione um registro!", "Excluir", JOptionPane.INFORMATION_MESSAGE);
         }
