@@ -13,6 +13,7 @@ import br.com.sna.model.service.PrestadorImplements;
 import br.com.sna.model.service.ProcedimentoImplements;
 import br.com.sna.model.service.ProducaoImplements;
 import br.com.sna.view.ProducaoFrm;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
@@ -48,13 +49,15 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
         listarFuncionarios();
         listarPrestadores();
         listarProcedimentos();
-        
         attachListener();
+        
+        frm.getTbProducao().setSelectionBackground(Color.RED);
+        frm.setResizable(false);
         
     }
 
     @Override
-    public void attachListener() {
+    public final void attachListener() {
         frm.getBtIncluir().addActionListener(this);
         frm.getBtModificar().addActionListener(this);
         frm.getBtExcluir().addActionListener(this);
@@ -68,6 +71,7 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
         frm.getBtImprimir().addActionListener(this);
         frm.getBtLimpar().addActionListener(this);
         frm.getBtPesquisar().addActionListener(this);
+        frm.getBtFinalizarManu().addActionListener(this);
     }
 
     @Override
@@ -237,7 +241,7 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
 
     }
 
-    public void listarProcedimentos() {
+    public final void listarProcedimentos() {
         procedimentos = procedimentoImplements.listProcedimento("%%");
         frm.getBoxProcedimento().removeAllItems();
         for (int i = 0; i < procedimentos.size(); i++) {
@@ -245,7 +249,7 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
         }
     }
 
-    public void listarFuncionarios() {
+    public final void listarFuncionarios() {
         funcionarios = funcionarioImplements.listFun("%%");
         frm.getBoxProfissional().removeAllItems();
         frm.getBoxFuncionarioManu().removeAllItems();
@@ -255,7 +259,7 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
         }
     }
 
-    public void listarPrestadores() {
+    public final void listarPrestadores() {
         prestadores = prestadorImplements.listPrestador("%%");
         frm.getBoxPrestador().removeAllItems();
         for (int i = 0; i < prestadores.size(); i++) {
@@ -295,6 +299,8 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
             pesquisarProdPorPeriodoProfissional();
             pesquisarProdPorProfissional();
             pesquisarProducaoGeral();
+        }else if (e.getActionCommand().equals("Sair")){
+            frm.dispose();
         }
     }
     
