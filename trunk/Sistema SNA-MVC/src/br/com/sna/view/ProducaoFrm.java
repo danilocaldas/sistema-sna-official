@@ -7,7 +7,6 @@ package br.com.sna.view;
 import br.com.sna.control.ProducaoActionControl;
 import br.com.sna.model.dao.Producao;
 import br.com.sna.model.service.ProducaoImplements;
-import java.awt.Color;
 import java.sql.Date;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -54,17 +53,19 @@ public class ProducaoFrm extends javax.swing.JFrame {
         producoes = producaoImplements.listProducao("%" + boxFuncionarioManu.getSelectedItem().toString() + "%",
                 Date.valueOf(formato.format(dataEntrada)), Date.valueOf(formato.format(dataDigitacao)));
         mostrarProducoes(producoes);
-
+//        somar();
     }
 
     public void searchProducaoProfissional() {
         producoes = producaoImplements.ListarProducao("%" + boxFuncionarioManu.getSelectedItem().toString() + "%");
         mostrarProducoes(producoes);
+//        somar();
     }
 
     public void searchProducaoGeral() {
         producoes = producaoImplements.listProducao();
         mostrarProducoes(producoes);
+//        somar();
     }
 
     public void mostrarProducoes(List<Producao> producoes) {
@@ -88,6 +89,17 @@ public class ProducaoFrm extends javax.swing.JFrame {
             }
         }
     }
+    
+//    public void somar(){
+//        int total = 0;
+//        String valor = "";
+//        int linhas = tbProducao.getRowCount();
+//        for(int i = 0; i < linhas; i++){
+//            valor = String.valueOf(tbProducao.getValueAt(i, 6));
+//            total = total + Integer.parseInt(valor);
+//        }
+//        labelTotal.setText("Total: " + total);  
+//    }
 
     public void tbProducaoLinhaSelecionada(JTable tb) {
         if (tb.getSelectedRow() != -1) {
@@ -166,6 +178,7 @@ public class ProducaoFrm extends javax.swing.JFrame {
         btImprimir = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         btFinalizarManu = new javax.swing.JButton();
+        labelTotal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Produção");
@@ -569,6 +582,8 @@ public class ProducaoFrm extends javax.swing.JFrame {
         btFinalizarManu.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar2.add(btFinalizarManu);
 
+        labelTotal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout painelManuntencaoLayout = new javax.swing.GroupLayout(painelManuntencao);
         painelManuntencao.setLayout(painelManuntencaoLayout);
         painelManuntencaoLayout.setHorizontalGroup(
@@ -582,8 +597,10 @@ public class ProducaoFrm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(painelManuntencaoLayout.createSequentialGroup()
-                        .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 9, Short.MAX_VALUE)))
+                        .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addComponent(labelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)))
                 .addContainerGap())
         );
         painelManuntencaoLayout.setVerticalGroup(
@@ -596,7 +613,9 @@ public class ProducaoFrm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(painelManuntencaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46))
         );
 
@@ -724,6 +743,7 @@ public class ProducaoFrm extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
     private javax.swing.JLabel labelId;
+    private javax.swing.JLabel labelTotal;
     private javax.swing.JPanel painelInclusao;
     private javax.swing.JPanel painelManuntencao;
     private javax.swing.JRadioButton radioFuncionario;
@@ -947,6 +967,13 @@ public class ProducaoFrm extends javax.swing.JFrame {
     public void setPainelManuntencao(javax.swing.JPanel painelManuntencao) {
         this.painelManuntencao = painelManuntencao;
     }
-    
-    
+
+    public javax.swing.JLabel getLabelTotal() {
+        return labelTotal;
+    }
+
+    public void setLabelTotal(javax.swing.JLabel labelTotal) {
+        this.labelTotal = labelTotal;
+    }
+
 }

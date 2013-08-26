@@ -50,10 +50,10 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
         listarPrestadores();
         listarProcedimentos();
         attachListener();
-        
+
         frm.getTbProducao().setSelectionBackground(Color.RED);
         frm.setResizable(false);
-        
+
     }
 
     @Override
@@ -146,9 +146,7 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
             }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(frm, "Preeencha A quantidade!", "Error" + ex, JOptionPane.ERROR_MESSAGE);
-            //ex.printStackTrace();
         }
-        //JOptionPane.showMessageDialog(frm, "Preeencha as datas!", "Error", JOptionPane.ERROR_MESSAGE);
         return false;
     }
 
@@ -280,13 +278,13 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
         } else if (e.getActionCommand().equals("Modificar")) {
             prepararAlterar();
         } else if (e.getActionCommand().equals("Excluir")) {
-           excluir();
+            excluir();
         } else if (e.getActionCommand().equals("Salvar")) {
             salvar();
-            //desabilitarBtSalvar();
+
         } else if (e.getActionCommand().equals("Alterar")) {
             alterar();
-            //desabilitarBtAlterar();
+
         } else if (e.getActionCommand().equals("Limpar")) {
             limparTabela(producoes);
         } else if (e.getActionCommand().equals("Finalizar")) {
@@ -299,33 +297,35 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
             pesquisarProdPorPeriodoProfissional();
             pesquisarProdPorProfissional();
             pesquisarProducaoGeral();
-        }else if (e.getActionCommand().equals("Sair")){
+        } else if (e.getActionCommand().equals("Sair")) {
             frm.dispose();
         }
     }
-    
-    public void confirmarExclusão(){
-       String msg = "Deseja realmente excluir esta produção?";
-       String titulo = "Confimação";
-       int yes = JOptionPane.showConfirmDialog(frm, msg, titulo, JOptionPane.YES_NO_OPTION);
-       if(yes == JOptionPane.YES_OPTION){
-           excluir();
-           //return true;
-       }
-       //return false;
+
+    public void confirmarExclusão() {
+        String msg = "Deseja realmente excluir esta produção?";
+        String titulo = "Confimação";
+        int yes = JOptionPane.showConfirmDialog(frm, msg, titulo, JOptionPane.YES_NO_OPTION);
+        if (yes == JOptionPane.YES_OPTION) {
+            excluir();
+
+        }
+
     }
-    
-    public void pesquisarProducaoGeral(){
-        if(frm.getRadioTodos().isSelected()){
+
+    public void pesquisarProducaoGeral() {
+        if (frm.getRadioTodos().isSelected()) {
             limparTabela(producoes);
             frm.searchProducaoGeral();
+            somar();
         }
     }
-    
-    public void pesquisarProdPorProfissional(){
-        if(frm.getRadioFuncionario().isSelected()){
+
+    public void pesquisarProdPorProfissional() {
+        if (frm.getRadioFuncionario().isSelected()) {
             limparTabela(producoes);
             frm.searchProducaoProfissional();
+            somar();
         }
     }
 
@@ -333,6 +333,7 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
         if (frm.getRadioPeriodo().isSelected() && verificarDatasPesquisa()) {
             limparTabela(producoes);
             frm.searchProducaoProfissionalPeriodo();
+            somar();
         }
     }
 
@@ -360,5 +361,16 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
             frm.getjDateChooserDataEntrada().setDate(null);
             frm.getFtxtQuantidade().setText("");
         }
+    }
+
+    public void somar() {
+        int total = 0;
+        String valor = "";
+        int linhas = frm.getTbProducao().getRowCount();
+        for (int i = 0; i < linhas; i++) {
+            valor = String.valueOf(frm.getTbProducao().getValueAt(i, 6));
+            total = total + Integer.parseInt(valor);
+        }
+        frm.getLabelTotal().setText("Total: " + total);
     }
 }
