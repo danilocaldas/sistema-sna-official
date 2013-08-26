@@ -6,10 +6,11 @@ package br.com.sna.model.service;
 
 import br.com.sna.connection.ConnectionfactoryMYSQL;
 import br.com.sna.model.dao.Producao;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -137,6 +138,10 @@ public class ProducaoImplements implements ProducaoController {
             rset = pstmt.executeQuery();
             Producao pro3;
             while (rset.next()) {
+//                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+//                java.util.Date dataEntrada = (java.util.Date) rset.getDate("data_entrada");
+//                java.util.Date dataDigitacao = (java.util.Date) rset.getDate("data_digitacao");
+                
                 pro3 = new Producao();
                 pro3.setId(rset.getLong("id"));
                 pro3.setFuncionario_nome(rset.getString("funcionario_nome"));
@@ -144,6 +149,8 @@ public class ProducaoImplements implements ProducaoController {
                 pro3.setProcedimento_nome(rset.getString("procedimento_nome"));
                 pro3.setData_entrada(rset.getDate("data_entrada"));
                 pro3.setData_digitacao(rset.getDate("data_digitacao"));
+//                pro3.setData_entrada(Date.valueOf(formato.format(dataEntrada)));
+//                pro3.setData_digitacao(Date.valueOf(formato.format(dataDigitacao)));
                 pro3.setQuantidade(rset.getInt("quantidade"));
                 producoes.add(pro3);
             }
@@ -152,6 +159,4 @@ public class ProducaoImplements implements ProducaoController {
         }
         return producoes;
     }
-
-   
 }
