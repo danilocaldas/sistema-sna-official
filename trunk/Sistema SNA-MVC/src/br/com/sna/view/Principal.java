@@ -41,6 +41,7 @@ public class Principal extends javax.swing.JFrame {
         menuPrestadores = new javax.swing.JMenuItem();
         menuProcedimentos = new javax.swing.JMenuItem();
         menuProducao = new javax.swing.JMenuItem();
+        menuArquivo = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Núcleo APAC/AIH");
@@ -78,6 +79,9 @@ public class Principal extends javax.swing.JFrame {
 
         menuProducao.setText("Produção");
         jMenu2.add(menuProducao);
+
+        menuArquivo.setText("Arquivo");
+        jMenu2.add(menuArquivo);
 
         jMenuBar1.add(jMenu2);
 
@@ -138,6 +142,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JMenuItem menuArquivo;
     private javax.swing.JMenuItem menuFuncionarios;
     private javax.swing.JMenuItem menuPrestadores;
     private javax.swing.JMenuItem menuProcedimentos;
@@ -183,6 +188,14 @@ public class Principal extends javax.swing.JFrame {
 
     public void setMenuProducao(javax.swing.JMenuItem menuProducao) {
         this.menuProducao = menuProducao;
+    }
+
+    public javax.swing.JMenuItem getMenuArquivo() {
+        return menuArquivo;
+    }
+
+    public void setMenuArquivo(javax.swing.JMenuItem menuArquivo) {
+        this.menuArquivo = menuArquivo;
     }
     
     

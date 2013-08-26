@@ -4,6 +4,7 @@
  */
 package br.com.sna.control;
 
+import br.com.sna.view.ArquivoFrm;
 import br.com.sna.view.FuncionarioFrm;
 import br.com.sna.view.PrestadorFrm;
 import br.com.sna.view.Principal;
@@ -35,6 +36,8 @@ public class PrincipalActionControl implements ActionListener {
             abrirProcedimentos();
         }else if (event.getActionCommand().equals("Produção")){
             abrirProducao();
+        }else if(event.getActionCommand().equals("Arquivo")){
+            abrirArquivo();
         }
     }
 
@@ -43,6 +46,7 @@ public class PrincipalActionControl implements ActionListener {
         frm.getMenuPrestadores().addActionListener(this);
         frm.getMenuProcedimentos().addActionListener(this);
         frm.getMenuProducao().addActionListener(this);
+        frm.getMenuArquivo().addActionListener(this);
     }
     
     private void abrirProcedimentos(){
@@ -71,5 +75,12 @@ public class PrincipalActionControl implements ActionListener {
         producaoFrm.setVisible(true);
         producaoFrm.setLocationRelativeTo(null);
         producaoFrm.setResizable(false);
+    }
+    
+     private void abrirArquivo(){
+        ArquivoFrm arquivo_frm = new ArquivoFrm();
+        arquivo_frm.setVisible(true);
+        arquivo_frm.setLocationRelativeTo(null);
+        arquivo_frm.setResizable(false);
     }
 }
