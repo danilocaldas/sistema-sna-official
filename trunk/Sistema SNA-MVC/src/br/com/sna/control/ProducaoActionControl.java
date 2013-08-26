@@ -225,7 +225,7 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
             producao.setId(Long.parseLong(frm.getLabelId().getText()));
         }
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date dataEntrada = (java.util.Date) frm.getjDateChooserDataEntrada().getDate();
+        java.util.Date dataEntrada =  (java.util.Date) frm.getjDateChooserDataEntrada().getDate();
         java.util.Date dataDigitacao = (java.util.Date) frm.getjDateChooserDataDigitacao().getDate();
 
         producao.setFuncionario_nome(frm.getBoxProfissional().getSelectedItem().toString());
