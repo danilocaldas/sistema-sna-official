@@ -41,6 +41,11 @@
                 <Property name="text" type="java.lang.String" value="Produ&#xe7;&#xe3;o"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuArquivo">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Arquivo"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>
