@@ -4,12 +4,7 @@
  */
 package br.com.sna.view;
 
-import br.com.sna.connection.ConnectionfactoryMYSQL;
 import br.com.sna.control.ArquivoActionControl;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import javax.swing.DefaultListModel;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,9 +14,6 @@ public class ArquivoFrm extends javax.swing.JFrame {
 
     ArquivoActionControl arquivoActionControl;
 
-    private DefaultTableModel tmPrestadoresArquivo = new DefaultTableModel(null, new String[]{"Prestador"});
-    private DefaultTableModel tmProcedimentoArquivo = new DefaultTableModel(null, new String[]{"Procedimento"});
-
     /**
      * Creates new form ArquivoFrm
      */
@@ -29,10 +21,7 @@ public class ArquivoFrm extends javax.swing.JFrame {
         initComponents();
         arquivoActionControl = new ArquivoActionControl(this);
 
-       
     }
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,12 +49,12 @@ public class ArquivoFrm extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jlistPrestadores = new javax.swing.JList();
         jPanel4 = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        tbPrestadores = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbProcedimentos = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        areaTxConteudoPres = new javax.swing.JTextArea();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        areaTxConteuProce = new javax.swing.JTextArea();
         jToolBar1 = new javax.swing.JToolBar();
         btIncluir = new javax.swing.JButton();
         btModificar = new javax.swing.JButton();
@@ -150,19 +139,19 @@ public class ArquivoFrm extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagens", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
-        jlistProcedimentos.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane4.setViewportView(jlistProcedimentos);
 
         jTabbedPane1.addTab("Procedimentos", jScrollPane4);
 
-        jlistPrestadores.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+        jlistPrestadores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlistPrestadoresMouseClicked(evt);
+            }
+        });
+        jlistPrestadores.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jlistPrestadoresValueChanged(evt);
+            }
         });
         jScrollPane3.setViewportView(jlistPrestadores);
 
@@ -181,17 +170,19 @@ public class ArquivoFrm extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Conteúdo adicionado na caixa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
-        tbPrestadores.setModel(tmPrestadoresArquivo);
-        jScrollPane5.setViewportView(tbPrestadores);
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Prestador(s):");
 
-        tbProcedimentos.setModel(tmProcedimentoArquivo);
-        jScrollPane1.setViewportView(tbProcedimentos);
-
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Procedimento(s):");
+
+        areaTxConteudoPres.setColumns(20);
+        areaTxConteudoPres.setRows(5);
+        jScrollPane1.setViewportView(areaTxConteudoPres);
+
+        areaTxConteuProce.setColumns(20);
+        areaTxConteuProce.setRows(5);
+        jScrollPane5.setViewportView(areaTxConteuProce);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -200,11 +191,11 @@ public class ArquivoFrm extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addContainerGap())
+                    .addComponent(jLabel3)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane1, jScrollPane5});
@@ -214,12 +205,13 @@ public class ArquivoFrm extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jScrollPane1, jScrollPane5});
@@ -322,11 +314,21 @@ public class ArquivoFrm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jlistPrestadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlistPrestadoresMouseClicked
+    }//GEN-LAST:event_jlistPrestadoresMouseClicked
+
+    private void jlistPrestadoresValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlistPrestadoresValueChanged
+
+        
+
+
+    }//GEN-LAST:event_jlistPrestadoresValueChanged
 
     /**
      * @param args the command line arguments
@@ -363,6 +365,8 @@ public class ArquivoFrm extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea areaTxConteuProce;
+    private javax.swing.JTextArea areaTxConteudoPres;
     private javax.swing.JComboBox boxCorCaixa;
     private com.toedter.calendar.JMonthChooser boxMesArquivamento;
     private javax.swing.JButton btAlterar;
@@ -391,26 +395,8 @@ public class ArquivoFrm extends javax.swing.JFrame {
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JList jlistPrestadores;
     private javax.swing.JList jlistProcedimentos;
-    private javax.swing.JTable tbPrestadores;
-    private javax.swing.JTable tbProcedimentos;
     private com.toedter.calendar.JYearChooser txtAnoArquivamento;
     // End of variables declaration//GEN-END:variables
-
-    public DefaultTableModel getTmPrestadoresArquivo() {
-        return tmPrestadoresArquivo;
-    }
-
-    public void setTmPrestadoresArquivo(DefaultTableModel tmPrestadoresArquivo) {
-        this.tmPrestadoresArquivo = tmPrestadoresArquivo;
-    }
-
-    public DefaultTableModel getTmProcedimentoArquivo() {
-        return tmProcedimentoArquivo;
-    }
-
-    public void setTmProcedimentoArquivo(DefaultTableModel tmProcedimentoArquivo) {
-        this.tmProcedimentoArquivo = tmProcedimentoArquivo;
-    }
 
     public javax.swing.JComboBox getBoxCorCaixa() {
         return boxCorCaixa;
@@ -500,27 +486,27 @@ public class ArquivoFrm extends javax.swing.JFrame {
         this.jlistProcedimentos = jlistProcedimentos;
     }
 
-    public javax.swing.JTable getTbPrestadores() {
-        return tbPrestadores;
-    }
-
-    public void setTbPrestadores(javax.swing.JTable tbPrestadores) {
-        this.tbPrestadores = tbPrestadores;
-    }
-
-    public javax.swing.JTable getTbProcedimentos() {
-        return tbProcedimentos;
-    }
-
-    public void setTbProcedimentos(javax.swing.JTable tbProcedimentos) {
-        this.tbProcedimentos = tbProcedimentos;
-    }
-
     public com.toedter.calendar.JYearChooser getTxtAnoArquivamento() {
         return txtAnoArquivamento;
     }
 
     public void setTxtAnoArquivamento(com.toedter.calendar.JYearChooser txtAnoArquivamento) {
         this.txtAnoArquivamento = txtAnoArquivamento;
+    }
+
+    public javax.swing.JTextArea getAreaTxConteuProce() {
+        return areaTxConteuProce;
+    }
+
+    public void setAreaTxConteuProce(javax.swing.JTextArea areaTxConteuProce) {
+        this.areaTxConteuProce = areaTxConteuProce;
+    }
+
+    public javax.swing.JTextArea getAreaTxConteudoPres() {
+        return areaTxConteudoPres;
+    }
+
+    public void setAreaTxConteudoPres(javax.swing.JTextArea areaTxConteudoPres) {
+        this.areaTxConteudoPres = areaTxConteudoPres;
     }
 }

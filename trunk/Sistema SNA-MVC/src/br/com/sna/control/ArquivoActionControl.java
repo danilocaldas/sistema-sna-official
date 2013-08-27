@@ -12,6 +12,7 @@ import br.com.sna.view.ArquivoFrm;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,8 +24,10 @@ import javax.swing.DefaultListModel;
  */
 public class ArquivoActionControl implements ControlInterface {
 
-    private DefaultListModel lista_presta = new DefaultListModel();
-    private DefaultListModel lista_proce = new DefaultListModel();
+    public DefaultListModel lista_presta = new DefaultListModel();
+    public DefaultListModel lista_proce = new DefaultListModel();
+    public DefaultListModel lista_conteu_proce = new DefaultListModel();
+    
     PrestadorImplements prestadorImplements;
     ResultSet rset;
     PreparedStatement pstmt;
@@ -44,10 +47,9 @@ public class ArquivoActionControl implements ControlInterface {
 
     public final void preencherListaPrestador() {
         frm.getJlistPrestadores().setModel(lista_presta);
+       
         try {
-
             atualizaPrestador();
-
             rset = pstmt.executeQuery();
             while (rset.next()) {
                 lista_presta.addElement(rset.getString("nome"));

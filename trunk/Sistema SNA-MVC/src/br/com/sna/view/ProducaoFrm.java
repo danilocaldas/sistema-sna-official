@@ -53,19 +53,19 @@ public class ProducaoFrm extends javax.swing.JFrame {
         producoes = producaoImplements.listProducao("%" + boxFuncionarioManu.getSelectedItem().toString() + "%",
                 Date.valueOf(formato.format(dataEntrada)), Date.valueOf(formato.format(dataDigitacao)));
         mostrarProducoes(producoes);
-//        somar();
+
     }
 
     public void searchProducaoProfissional() {
         producoes = producaoImplements.ListarProducao("%" + boxFuncionarioManu.getSelectedItem().toString() + "%");
         mostrarProducoes(producoes);
-//        somar();
+
     }
 
     public void searchProducaoGeral() {
         producoes = producaoImplements.listProducao();
         mostrarProducoes(producoes);
-//        somar();
+
     }
 
     public void mostrarProducoes(List<Producao> producoes) {
@@ -90,19 +90,8 @@ public class ProducaoFrm extends javax.swing.JFrame {
         }
     }
     
-//    public void somar(){
-//        int total = 0;
-//        String valor = "";
-//        int linhas = tbProducao.getRowCount();
-//        for(int i = 0; i < linhas; i++){
-//            valor = String.valueOf(tbProducao.getValueAt(i, 6));
-//            total = total + Integer.parseInt(valor);
-//        }
-//        labelTotal.setText("Total: " + total);  
-//    }
-
     public void tbProducaoLinhaSelecionada(JTable tb) {
-        if (tb.getSelectedRow() != -1) {
+        if (tb.getSelectedRow()!= -1) {
             labelId.setText(String.valueOf(producoes.get(tb.getSelectedRow()).getId()));
             boxProfissional.setSelectedItem(producoes.get(tb.getSelectedRow()).getFuncionario_nome());
             boxPrestador.setSelectedItem(producoes.get(tb.getSelectedRow()).getPrestador_nome());
