@@ -6,6 +6,7 @@ package br.com.sna.model.service;
 
 import br.com.sna.connection.ConnectionfactoryMYSQL;
 import br.com.sna.model.dao.Prestador;
+import br.com.sna.view.ArquivoFrm;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -24,6 +26,8 @@ public class PrestadorImplements implements PrestadorController {
     Query query = new Query();
     PreparedStatement pstmt;
     ResultSet rset;
+    
+    ArquivoFrm frm;
 
     @Override
     public void save(Prestador prestador) {
@@ -88,12 +92,12 @@ public class PrestadorImplements implements PrestadorController {
         return prestadores;
     }
 
+
     @Override
     public List<Prestador> listPrestador(String nome) {
-        List<Prestador> prestadores = new ArrayList<Prestador>();
+       List<Prestador> prestadores = new ArrayList<Prestador>();
         try {
-            pstmt = bdConnection.conectar().prepareStatement(query.listaPrestador);
-            pstmt.setString(1, nome);
+            pstmt = bdConnection.conectar().prepareStatement(query.consultaPrestador);
             rset = pstmt.executeQuery();
             Prestador pres;
             while (rset.next()) {

@@ -22,4 +22,6 @@ public interface PrestadorController {
     public void delete(Prestador prestador);
     public List<Prestador> listaPrestador();
     public List<Prestador> listPrestador(String nome);
+    
+   
 }
