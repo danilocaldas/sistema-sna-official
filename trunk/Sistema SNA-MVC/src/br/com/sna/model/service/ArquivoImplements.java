@@ -5,7 +5,6 @@
 package br.com.sna.model.service;
 
 import br.com.sna.connection.ConnectionfactoryMYSQL;
-import br.com.sna.model.service.ArquivoController;
 import br.com.sna.model.dao.Arquivo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

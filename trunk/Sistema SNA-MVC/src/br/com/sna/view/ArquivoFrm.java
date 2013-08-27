@@ -4,7 +4,11 @@
  */
 package br.com.sna.view;
 
+import br.com.sna.connection.ConnectionfactoryMYSQL;
 import br.com.sna.control.ArquivoActionControl;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.DefaultListModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,19 +18,21 @@ import javax.swing.table.DefaultTableModel;
 public class ArquivoFrm extends javax.swing.JFrame {
 
     ArquivoActionControl arquivoActionControl;
-    
-    
+
     private DefaultTableModel tmPrestadoresArquivo = new DefaultTableModel(null, new String[]{"Prestador"});
     private DefaultTableModel tmProcedimentoArquivo = new DefaultTableModel(null, new String[]{"Procedimento"});
-    
+
     /**
      * Creates new form ArquivoFrm
      */
     public ArquivoFrm() {
         initComponents();
         arquivoActionControl = new ArquivoActionControl(this);
-        
+
+       
     }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -517,6 +523,4 @@ public class ArquivoFrm extends javax.swing.JFrame {
     public void setTxtAnoArquivamento(com.toedter.calendar.JYearChooser txtAnoArquivamento) {
         this.txtAnoArquivamento = txtAnoArquivamento;
     }
-
-
 }
