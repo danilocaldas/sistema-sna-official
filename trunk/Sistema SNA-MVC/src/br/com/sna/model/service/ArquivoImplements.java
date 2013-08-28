@@ -76,24 +76,25 @@ public class ArquivoImplements implements ArquivoController {
     }
 
     @Override
-    public List<Arquivo> arquivo(Integer numero, String ano, String mes) {
+    public List<Arquivo> lista_arquivo() {
         List<Arquivo> arquivos = new ArrayList<Arquivo>();
-        int index = 0;
+        //int index = 0;
         try {
             pstmt = bdConnection.conectar().prepareStatement(query.consultaArquivo);
-            pstmt.setInt(++index, numero);
-            pstmt.setString(++index, ano);
-            pstmt.setString(++index, mes);
+//            pstmt.setInt(++index, numero);
+//            pstmt.setString(++index, ano);
+//            pstmt.setString(++index, mes);
             rset = pstmt.executeQuery();
             Arquivo arq;
             while(rset.next()){
                 arq = new Arquivo();
-                arq.setAno("numero");
-                arq.setAno("ano");
-                arq.setAno("mes");
-                arq.setAno("cor");
-                arq.setAno("prestador_nome");
-                arq.setAno("procedimento_nome");
+                arq.setNumero(rset.getInt("numero"));
+                arq.setAno(rset.getString("ano"));
+                arq.setMes(rset.getString("mes"));
+                arq.setCor(rset.getString("cor"));
+                arq.setPrestador_nome(rset.getString("prestador_nome"));
+                arq.setProcedimento_nome(rset.getString("procedimento_nome"));
+                
                 arquivos.add(arq);
             }
         } catch (SQLException ex) {
