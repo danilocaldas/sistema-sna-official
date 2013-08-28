@@ -9,10 +9,11 @@ import br.com.sna.model.dao.Prestador;
 import br.com.sna.model.dao.Procedimento;
 import br.com.sna.model.service.PrestadorImplements;
 import br.com.sna.view.ArquivoFrm;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,12 +23,10 @@ import javax.swing.DefaultListModel;
  *
  * @author Danilo
  */
-public class ArquivoActionControl implements ControlInterface {
+public class ArquivoActionControl implements ControlInterface, ActionListener {
 
     public DefaultListModel lista_presta = new DefaultListModel();
     public DefaultListModel lista_proce = new DefaultListModel();
-    public DefaultListModel lista_conteu_proce = new DefaultListModel();
-    
     PrestadorImplements prestadorImplements;
     ResultSet rset;
     PreparedStatement pstmt;
@@ -47,7 +46,6 @@ public class ArquivoActionControl implements ControlInterface {
 
     public final void preencherListaPrestador() {
         frm.getJlistPrestadores().setModel(lista_presta);
-       
         try {
             atualizaPrestador();
             rset = pstmt.executeQuery();
@@ -92,21 +90,34 @@ public class ArquivoActionControl implements ControlInterface {
 
     @Override
     public final void attachListener() {
+        frm.getBtIncluir().addActionListener(this);
+        frm.getBtModificar().addActionListener(this);
+        frm.getBtExcluir().addActionListener(this);
+        frm.getBtSalvar().addActionListener(this);
+        frm.getBtAlterar().addActionListener(this);
+        frm.getBtFinalizar().addActionListener(this);
+        frm.getBtLimparPrestador().addActionListener(this);
+        frm.getBtLimparProcedimento().addActionListener(this);
+        
     }
 
+    
     @Override
     public void enableButtonsToSaveAction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        enableDisableButtonsToEdit(true);
     }
 
     @Override
     public void disableButtonsToSaveAction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        enableDisableButtonsToEdit(false);
     }
 
     @Override
     public void enableDisableButtonsToEdit(boolean enabled) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        frm.getBtIncluir().setEnabled(!enabled);
+        frm.getBtModificar().setEnabled(!enabled);
+        frm.getBtExcluir().setEnabled(!enabled);
+        frm.getBtFinalizar().setEnabled(enabled);
     }
 
     @Override
@@ -148,4 +159,13 @@ public class ArquivoActionControl implements ControlInterface {
     public void excluir() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+    }
+
+
+
+ 
 }
