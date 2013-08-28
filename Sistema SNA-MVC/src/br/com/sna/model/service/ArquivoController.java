@@ -19,5 +19,5 @@ public interface ArquivoController {
      public void save(Arquivo arquivo);
      public void update(Arquivo arquivo);
      public void delete(Arquivo arquivo);
-     public List<Arquivo> arquivo(Integer numero, String ano, String mes);
+     public List<Arquivo> lista_arquivo();
 }

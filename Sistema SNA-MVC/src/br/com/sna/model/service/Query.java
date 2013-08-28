@@ -41,7 +41,7 @@ public class Query {
     String listaProducao = "SELECT * FROM PRODUCAO ORDER BY ID ASC";
     //CRUD ARQUIVO
     String cadastraArquivo = "INSERT INTO CAIXA (NUMERO, ANO, MES, COR, PRESTADOR_NOME, PROCEDIMENTO_NOME) VALUES(?, ?, ?, ?, ?, ?)";
-    String consultaArquivo = "SELECT * FROM CAIXA WHERE NUMERO LIKE ?, ANO LIKE = ? AND MES LIKE = ?";
+    String consultaArquivo = "SELECT * FROM CAIXA ORDER BY NUMERO";
     String excluirCaixa = "DELETE FROM CAIXA WHERE NUMERO LIKE ? AND ANO LIKE ?";
     String updateArquivo = "UPDATE CAIXA SET ANO = ?,MES = ?,COR = ?,PRESTADOR_NOME = ?,PROCEDIMENTO_NOME = ? WHERE NUMERO = ?";
     //SOMA PRODUCAO

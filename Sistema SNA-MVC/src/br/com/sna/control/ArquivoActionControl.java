@@ -5,8 +5,10 @@
 package br.com.sna.control;
 
 import br.com.sna.connection.ConnectionfactoryMYSQL;
+import br.com.sna.model.dao.Arquivo;
 import br.com.sna.model.dao.Prestador;
 import br.com.sna.model.dao.Procedimento;
+import br.com.sna.model.service.ArquivoImplements;
 import br.com.sna.model.service.PrestadorImplements;
 import br.com.sna.view.ArquivoFrm;
 import java.awt.event.ActionEvent;
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,16 +31,19 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
     public DefaultListModel lista_presta = new DefaultListModel();
     public DefaultListModel lista_proce = new DefaultListModel();
     PrestadorImplements prestadorImplements;
+    ArquivoImplements arquivoImplements;
     ResultSet rset;
     PreparedStatement pstmt;
     ArquivoFrm frm;
     ConnectionfactoryMYSQL conn;
     List<Prestador> prestadores;
     List<Procedimento> procedimentos;
+    List<Arquivo> arquivos;
 
     public ArquivoActionControl(ArquivoFrm frm) {
         this.frm = frm;
         prestadorImplements = new PrestadorImplements();
+        arquivoImplements = new ArquivoImplements();
         conn = new ConnectionfactoryMYSQL();
         attachListener();
         preencherListaPrestador();
@@ -98,10 +104,17 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
         frm.getBtFinalizar().addActionListener(this);
         frm.getBtLimparPrestador().addActionListener(this);
         frm.getBtLimparProcedimento().addActionListener(this);
-        
+
     }
 
-    
+    private void limparAreaPrestador() {
+        frm.getAreaTxConteudoPres().setText("");
+    }
+
+    private void limparAreaProcedimento() {
+        frm.getAreaTxConteuProce().setText("");
+    }
+
     @Override
     public void enableButtonsToSaveAction() {
         enableDisableButtonsToEdit(true);
@@ -120,39 +133,91 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
         frm.getBtFinalizar().setEnabled(enabled);
     }
 
+    private boolean verificarNumeroInserido() {
+        if ("".equals(frm.getFtxtNumeroIdentificao().getText())) {
+            JOptionPane.showMessageDialog(frm, "Insira o numero de indentificação da caixa!",
+                    "Atenção", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     @Override
     public void limparCampos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        frm.getFtxtNumeroIdentificao().setText("");
+        frm.getAreaTxConteudoPres().setText("");
+        frm.getAreaTxConteuProce().setText("");
     }
 
     @Override
     public void desabilitarCampoDoFrm() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        frm.getFtxtNumeroIdentificao().setEnabled(false);
+        frm.getTxtAnoArquivamento().setEnabled(false);
+        frm.getBoxMesArquivamento().setEnabled(false);
+        frm.getBoxCorCaixa().setEnabled(false);
+        frm.getAreaTxConteudoPres().setEnabled(false);
+        frm.getAreaTxConteuProce().setEnabled(false);
+        frm.getBtLimparPrestador().setEnabled(false);
+        frm.getBtLimparProcedimento().setEnabled(false);
     }
 
     @Override
     public void habilitarCamposDoFrm() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        frm.getFtxtNumeroIdentificao().setEnabled(true);
+        frm.getTxtAnoArquivamento().setEnabled(true);
+        frm.getBoxMesArquivamento().setEnabled(true);
+        frm.getBoxCorCaixa().setEnabled(true);
+        frm.getAreaTxConteudoPres().setEnabled(true);
+        frm.getAreaTxConteuProce().setEnabled(true);
+        frm.getBtLimparPrestador().setEnabled(true);
+        frm.getBtLimparProcedimento().setEnabled(true);
+    }
+
+    private void habilitarBtSalvar() {
+        frm.getBtSalvar().setEnabled(true);
+    }
+
+    private void desbilitarBtSalvar() {
+        frm.getBtSalvar().setEnabled(false);
+    }
+
+    private void habilitarBtAlterar() {
+        frm.getBtAlterar().setEnabled(true);
+    }
+
+    private void desbilitarBtAlterar() {
+        frm.getBtAlterar().setEnabled(false);
     }
 
     @Override
     public void prepararAlterar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        enableButtonsToSaveAction();
+        habilitarCamposDoFrm();
+        limparCampos();
+        frm.getBtAlterar().setEnabled(true);
     }
 
     @Override
     public void preparaInserir() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        enableButtonsToSaveAction();
+        habilitarCamposDoFrm();
+        limparCampos();
+        frm.getBtSalvar().setEnabled(true);
     }
 
     @Override
     public void alterar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        arquivoImplements.update(formToArquivo());
+        JOptionPane.showMessageDialog(frm, "Caixa alterada!", "Alterar", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void salvar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        arquivoImplements.save(formToArquivo());
+        JOptionPane.showMessageDialog(frm, "Caixa salva!", "Salvar", JOptionPane.INFORMATION_MESSAGE);
+        limparTabela(arquivos);
+        frm.searchArquivoGeral();
     }
 
     @Override
@@ -162,10 +227,46 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        if (e.getActionCommand().equals("Limpar Prestador")) {
+            limparAreaPrestador();
+        } else if (e.getActionCommand().equals("Limpar Procedimento")) {
+            limparAreaProcedimento();
+        } else if (e.getActionCommand().equals("Salvar")) {
+            salvar();
+        } else if (e.getActionCommand().equals("Incluir")) {
+            preparaInserir();
+
+        } else if (e.getActionCommand().equals("Modificar")) {
+            prepararAlterar();
+        } else if (e.getActionCommand().equals("Alterar")) {
+            alterar();
+        } else if (e.getActionCommand().equals("Finalizar")) {
+            disableButtonsToSaveAction();
+            desbilitarBtAlterar();
+            desbilitarBtSalvar();
+            desabilitarCampoDoFrm();
+            limparCampos();
+        }
     }
 
+    private Arquivo formToArquivo() {
 
+        Arquivo arquivo = new Arquivo();
+        if (!"".equals(frm.getFtxtNumeroIdentificao().getText())) {
+            arquivo.setNumero(Integer.parseInt(frm.getFtxtNumeroIdentificao().getText()));
+        }
+        arquivo.setAno(String.valueOf(frm.getTxtAnoArquivamento().getYear()));
+        arquivo.setMes(String.valueOf(frm.getBoxMesArquivamento().getMonth()).toString());
+        arquivo.setCor(frm.getBoxCorCaixa().getSelectedItem().toString());
+        arquivo.setPrestador_nome(frm.getAreaTxConteudoPres().getText());
+        arquivo.setProcedimento_nome(frm.getAreaTxConteuProce().getText());
 
- 
+        return arquivo;
+    }
+    
+    public void limparTabela(List<Arquivo> arquivos) {
+        while (frm.tmArquivo.getRowCount() > 0) {
+            frm.tmArquivo.removeRow(0);
+        }
+    }
 }
