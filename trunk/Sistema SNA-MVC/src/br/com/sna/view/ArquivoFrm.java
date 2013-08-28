@@ -44,10 +44,10 @@ public class ArquivoFrm extends javax.swing.JFrame {
         boxCorCaixa = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jlistProcedimentos = new javax.swing.JList();
         jScrollPane3 = new javax.swing.JScrollPane();
         jlistPrestadores = new javax.swing.JList();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jlistProcedimentos = new javax.swing.JList();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -63,6 +63,8 @@ public class ArquivoFrm extends javax.swing.JFrame {
         btSalvar = new javax.swing.JButton();
         btAlterar = new javax.swing.JButton();
         btFinalizar = new javax.swing.JButton();
+        btLimparProcedimento = new javax.swing.JToggleButton();
+        btLimparPrestador = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Arquivo");
@@ -139,10 +141,9 @@ public class ArquivoFrm extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listagens", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
-        jScrollPane4.setViewportView(jlistProcedimentos);
+        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        jTabbedPane1.addTab("Procedimentos", jScrollPane4);
-
+        jlistPrestadores.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jlistPrestadores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jlistPrestadoresMouseClicked(evt);
@@ -157,15 +158,28 @@ public class ArquivoFrm extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Prestadores", jScrollPane3);
 
+        jlistProcedimentos.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jlistProcedimentos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlistProcedimentosMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jlistProcedimentosMousePressed(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jlistProcedimentos);
+
+        jTabbedPane1.addTab("Procedimentos", jScrollPane4);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Conteúdo adicionado na caixa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
@@ -211,7 +225,7 @@ public class ArquivoFrm extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jScrollPane1, jScrollPane5});
@@ -265,40 +279,59 @@ public class ArquivoFrm extends javax.swing.JFrame {
         btFinalizar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(btFinalizar);
 
+        btLimparProcedimento.setText("Limpar Procedimento");
+
+        btLimparPrestador.setText("Limpar Prestador");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btLimparPrestador)
+                                    .addComponent(btLimparProcedimento)))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel3, jPanel4});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btLimparPrestador, btLimparProcedimento});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btLimparPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(btLimparProcedimento)
+                        .addGap(36, 36, 36))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)))
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btLimparPrestador, btLimparProcedimento});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -314,21 +347,37 @@ public class ArquivoFrm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jlistPrestadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlistPrestadoresMouseClicked
-    }//GEN-LAST:event_jlistPrestadoresMouseClicked
-
     private void jlistPrestadoresValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlistPrestadoresValueChanged
 
-        
-
-
     }//GEN-LAST:event_jlistPrestadoresValueChanged
+
+    private void jlistPrestadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlistPrestadoresMouseClicked
+        StringBuilder buf = new StringBuilder();
+        Object[] selectedValues = jlistPrestadores.getSelectedValues();
+        for (int i = 0; i < selectedValues.length; i++) {
+            buf.append(selectedValues[i].toString()).append(",\n");
+        }
+        areaTxConteudoPres.append(buf.toString());
+    }//GEN-LAST:event_jlistPrestadoresMouseClicked
+
+    private void jlistProcedimentosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlistProcedimentosMousePressed
+
+    }//GEN-LAST:event_jlistProcedimentosMousePressed
+
+    private void jlistProcedimentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlistProcedimentosMouseClicked
+        StringBuilder buf = new StringBuilder();
+        Object[] selectedValues = jlistProcedimentos.getSelectedValues();
+        for (int i = 0; i < selectedValues.length; i++) {
+            buf.append(selectedValues[i].toString()).append(",\n");
+        }
+        areaTxConteuProce.append(buf.toString());
+    }//GEN-LAST:event_jlistProcedimentosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -373,6 +422,8 @@ public class ArquivoFrm extends javax.swing.JFrame {
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btFinalizar;
     private javax.swing.JButton btIncluir;
+    private javax.swing.JToggleButton btLimparPrestador;
+    private javax.swing.JToggleButton btLimparProcedimento;
     private javax.swing.JButton btModificar;
     private javax.swing.JButton btSalvar;
     private javax.swing.JFormattedTextField ftxtNumeroIdentificao;
@@ -508,5 +559,21 @@ public class ArquivoFrm extends javax.swing.JFrame {
 
     public void setAreaTxConteudoPres(javax.swing.JTextArea areaTxConteudoPres) {
         this.areaTxConteudoPres = areaTxConteudoPres;
+    }
+
+    public javax.swing.JToggleButton getBtLimparPrestador() {
+        return btLimparPrestador;
+    }
+
+    public void setBtLimparPrestador(javax.swing.JToggleButton btLimparPrestador) {
+        this.btLimparPrestador = btLimparPrestador;
+    }
+
+    public javax.swing.JToggleButton getBtLimparProcedimento() {
+        return btLimparProcedimento;
+    }
+
+    public void setBtLimparProcedimento(javax.swing.JToggleButton btLimparProcedimento) {
+        this.btLimparProcedimento = btLimparProcedimento;
     }
 }
