@@ -7,13 +7,9 @@ package br.com.sna.view;
 import br.com.sna.control.ProducaoActionControl;
 import br.com.sna.model.dao.Producao;
 import br.com.sna.model.service.ProducaoImplements;
-import java.sql.Date;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.JFormattedTextField;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -25,13 +21,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ProducaoFrm extends javax.swing.JFrame {
 
-    ProducaoActionControl producaoActionControl;
+    public ProducaoActionControl producaoActionControl;
     public DefaultTableModel tmProducao = new DefaultTableModel(null, new String[]{"Id", "Profissional", "Prestador",
         "Procedimento", "Entrada",
         "Digitado", "QTD"});
-    ListSelectionModel lsmProducao;
+    public ListSelectionModel lsmProducao;
     public ProducaoImplements producaoImplements;
-    List<Producao> producoes;
+    public List<Producao> producoes;
 
     /**
      * Creates new form ProducaoFrm
@@ -41,71 +37,9 @@ public class ProducaoFrm extends javax.swing.JFrame {
         producaoActionControl = new ProducaoActionControl(this);
         producaoImplements = new ProducaoImplements();
 
-        
-        
     }
 
-    public void searchProducaoProfissionalPeriodo() {
 
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date dataEntrada = (java.util.Date) getjDateDe().getDate();
-        java.util.Date dataDigitacao = (java.util.Date) getjDataAte().getDate();
-        producoes = producaoImplements.listProducao("%" + boxFuncionarioManu.getSelectedItem().toString() + "%",
-                Date.valueOf(formato.format(dataEntrada)), Date.valueOf(formato.format(dataDigitacao)));
-        mostrarProducoes(producoes);
-
-    }
-
-    public void searchProducaoProfissional() {
-        producoes = producaoImplements.ListarProducao("%" + boxFuncionarioManu.getSelectedItem().toString() + "%");
-        mostrarProducoes(producoes);
-
-    }
-
-    public void searchProducaoGeral() {
-        producoes = producaoImplements.listProducao();
-        mostrarProducoes(producoes);
-
-    }
-
-    public void mostrarProducoes(List<Producao> producoes) {
-        while (tmProducao.getRowCount() < 0) {
-            tmProducao.removeRow(0);
-        }
-        if (producoes.size() == 0) {
-            JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum registro!");
-        } else {
-            String[] campos = new String[]{null, null, null, null, null, null, null};
-            for (int i = 0; i < producoes.size(); i++) {
-                tmProducao.addRow(campos);
-                tmProducao.setValueAt(producoes.get(i).getId(), i, 0);
-                tmProducao.setValueAt(producoes.get(i).getFuncionario_nome(), i, 1);
-                tmProducao.setValueAt(producoes.get(i).getPrestador_nome(), i, 2);
-                tmProducao.setValueAt(producoes.get(i).getProcedimento_nome(), i, 3);
-                tmProducao.setValueAt(producoes.get(i).getData_entrada(), i, 4);
-                tmProducao.setValueAt(producoes.get(i).getData_digitacao(), i, 5);
-                tmProducao.setValueAt(producoes.get(i).getQuantidade(), i, 6);
-
-            }
-        }
-    }
-    
-    public void tbProducaoLinhaSelecionada(JTable tb) {
-        if (tb.getSelectedRow()!= -1) {
-            labelId.setText(String.valueOf(producoes.get(tb.getSelectedRow()).getId()));
-            boxProfissional.setSelectedItem(producoes.get(tb.getSelectedRow()).getFuncionario_nome());
-            boxPrestador.setSelectedItem(producoes.get(tb.getSelectedRow()).getPrestador_nome());
-            boxProcedimento.setSelectedItem(producoes.get(tb.getSelectedRow()).getProcedimento_nome());
-            jDateChooserDataEntrada.setDate(producoes.get(tb.getSelectedRow()).getData_entrada());
-            jDateChooserDataDigitacao.setDate(producoes.get(tb.getSelectedRow()).getData_digitacao());
-            ftxtQuantidade.setText(String.valueOf(producoes.get(tb.getSelectedRow()).getQuantidade()));
-        } else {
-            labelId.setText("");
-            jDateChooserDataDigitacao.setDate(null);
-            jDateChooserDataEntrada.setDate(null);
-            ftxtQuantidade.setText("");
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -435,8 +369,8 @@ public class ProducaoFrm extends javax.swing.JFrame {
         lsmProducao = tbProducao.getSelectionModel();
         lsmProducao.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
-                if(! e.getValueIsAdjusting()){
-                    tbProducaoLinhaSelecionada(tbProducao);
+                if (!e.getValueIsAdjusting()) {
+                    producaoActionControl.tbProducaoLinhaSelecionada(tbProducao);
                 }
             }
         });

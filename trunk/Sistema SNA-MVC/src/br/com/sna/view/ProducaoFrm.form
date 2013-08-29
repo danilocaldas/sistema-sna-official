@@ -597,7 +597,7 @@
                         </Property>
                       </Properties>
                       <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="tbProducao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xd;&#xa;lsmProducao = tbProducao.getSelectionModel();&#xd;&#xa;lsmProducao.addListSelectionListener(new ListSelectionListener() {&#xd;&#xa;    public void valueChanged(ListSelectionEvent e) {&#xd;&#xa;        if(! e.getValueIsAdjusting()){&#xd;&#xa;            tbProducaoLinhaSelecionada(tbProducao);&#xd;&#xa;        }&#xd;&#xa;    }&#xd;&#xa;});"/>
+                        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="        tbProducao.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);&#xd;&#xa;        lsmProducao = tbProducao.getSelectionModel();&#xd;&#xa;        lsmProducao.addListSelectionListener(new ListSelectionListener() {&#xd;&#xa;            public void valueChanged(ListSelectionEvent e) {&#xd;&#xa;                if (!e.getValueIsAdjusting()) {&#xd;&#xa;                    producaoActionControl.tbProducaoLinhaSelecionada(tbProducao);&#xd;&#xa;                }&#xd;&#xa;            }&#xd;&#xa;        });"/>
                       </AuxValues>
                     </Component>
                   </SubComponents>

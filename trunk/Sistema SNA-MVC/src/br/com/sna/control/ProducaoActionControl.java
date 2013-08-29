@@ -31,12 +31,12 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
     public List<Procedimento> procedimentos;
     public List<Prestador> prestadores;
     public List<Funcionario> funcionarios;
-    List<Producao> producoes;
-    ProducaoImplements producaoImplements;
-    ProducaoFrm frm;
-    ProcedimentoImplements procedimentoImplements;
-    PrestadorImplements prestadorImplements;
-    FuncionarioImplements funcionarioImplements;
+    public List<Producao> producoes;
+    public ProducaoImplements producaoImplements;
+    public ProducaoFrm frm;
+    public ProcedimentoImplements procedimentoImplements;
+    public PrestadorImplements prestadorImplements;
+    public FuncionarioImplements funcionarioImplements;
 
     public ProducaoActionControl(ProducaoFrm frm) {
         this.frm = frm;
@@ -180,7 +180,7 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
             limparCampos();
             desabilitarCampoDoFrm();
             limparTabela(producoes);
-            frm.searchProducaoGeral();
+            searchProducaoGeral();
 
         }
     }
@@ -194,7 +194,7 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
             limparCampos();
             desabilitarCampoDoFrm();
             limparTabela(producoes);
-            frm.searchProducaoGeral();
+            searchProducaoGeral();
         }
     }
 
@@ -211,7 +211,7 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
                 limparCampos();
                 desabilitarCampoDoFrm();
                 limparTabela(producoes);
-                frm.searchProducaoGeral();
+                searchProducaoGeral();
             }
 
         } else {
@@ -316,7 +316,7 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
     public void pesquisarProducaoGeral() {
         if (frm.getRadioTodos().isSelected()) {
             limparTabela(producoes);
-            frm.searchProducaoGeral();
+            searchProducaoGeral();
             somar();
         }
     }
@@ -324,7 +324,7 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
     public void pesquisarProdPorProfissional() {
         if (frm.getRadioFuncionario().isSelected()) {
             limparTabela(producoes);
-            frm.searchProducaoProfissional();
+            searchProducaoProfissional();
             somar();
         }
     }
@@ -332,11 +332,56 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
     public void pesquisarProdPorPeriodoProfissional() {
         if (frm.getRadioPeriodo().isSelected() && verificarDatasPesquisa()) {
             limparTabela(producoes);
-            frm.searchProducaoProfissionalPeriodo();
+            searchProducaoProfissionalPeriodo();
             somar();
         }
     }
+    
+    public void searchProducaoProfissionalPeriodo() {
 
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        java.util.Date dataEntrada = (java.util.Date) frm.getjDateDe().getDate();
+        java.util.Date dataDigitacao = (java.util.Date) frm.getjDataAte().getDate();
+        producoes = producaoImplements.listProducao("%" + frm.getBoxFuncionarioManu().getSelectedItem().toString() + "%",
+                Date.valueOf(formato.format(dataEntrada)), Date.valueOf(formato.format(dataDigitacao)));
+        mostrarProducoes(producoes);
+
+    }
+
+    public void searchProducaoProfissional() {
+        producoes = producaoImplements.ListarProducao("%" + frm.getBoxFuncionarioManu().getSelectedItem().toString() + "%");
+        mostrarProducoes(producoes);
+
+    }
+
+    public void searchProducaoGeral() {
+        producoes = producaoImplements.listProducao();
+        mostrarProducoes(producoes);
+
+    }
+
+    public void mostrarProducoes(List<Producao> producoes) {
+        while (frm.tmProducao.getRowCount() < 0) {
+            frm.tmProducao.removeRow(0);
+        }
+        if (producoes.size() == 0) {
+            JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum registro!");
+        } else {
+            String[] campos = new String[]{null, null, null, null, null, null, null};
+            for (int i = 0; i < producoes.size(); i++) {
+                frm.tmProducao.addRow(campos);
+                frm.tmProducao.setValueAt(producoes.get(i).getId(), i, 0);
+                frm.tmProducao.setValueAt(producoes.get(i).getFuncionario_nome(), i, 1);
+                frm.tmProducao.setValueAt(producoes.get(i).getPrestador_nome(), i, 2);
+                frm.tmProducao.setValueAt(producoes.get(i).getProcedimento_nome(), i, 3);
+                frm.tmProducao.setValueAt(producoes.get(i).getData_entrada(), i, 4);
+                frm.tmProducao.setValueAt(producoes.get(i).getData_digitacao(), i, 5);
+                frm.tmProducao.setValueAt(producoes.get(i).getQuantidade(), i, 6);
+
+            }
+        }
+    }
+    
     public boolean verificarDatasPesquisa() {
         if (frm.getjDateDe().getDate() == null || frm.getjDataAte().getDate() == null) {
             JOptionPane.showMessageDialog(frm, "As datas devem ser preenchidas!");
