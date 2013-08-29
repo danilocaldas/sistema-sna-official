@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 /**
  *
@@ -364,6 +365,23 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
                 frm.tmArquivo.setValueAt(arquivos.get(i).getProcedimento_nome(), i, 5);
 
             }
+        }
+    }
+    
+    public void tbArquivoLinhaSelecionada(JTable tb) {
+        if (tb.getSelectedRow() != -1) {
+            frm.getFtxtNumeroIdentificao().setValue(arquivos.get(tb.getSelectedRow()).getNumero());
+            frm.getBoxPesquisaAno().setYear(Integer.valueOf(arquivos.get(tb.getSelectedRow()).getAno()));
+            frm.getBoxMesArquivamento().setMonth(Integer.valueOf(arquivos.get(tb.getSelectedRow()).getMes()));
+            frm.getBoxCorCaixa().setSelectedItem(arquivos.get(tb.getSelectedRow()).getCor());
+            frm.getAreaTxConteudoPres().setText(arquivos.get(tb.getSelectedRow()).getPrestador_nome());
+            frm.getAreaTxConteuProce().setText(arquivos.get(tb.getSelectedRow()).getProcedimento_nome());
+        } else {
+            frm.getFtxtNumero().setText("");
+            //frm.getBoxPesquisaAno().setYear(0);
+            //frm.getBoxMesArquivamento().setMonth(0);
+            frm.getAreaTxConteudoPres().setText("");
+            frm.getAreaTxConteuProce().setText(""); 
         }
     }
 }

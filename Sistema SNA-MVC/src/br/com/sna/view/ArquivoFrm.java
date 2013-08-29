@@ -8,6 +8,9 @@ import br.com.sna.control.ArquivoActionControl;
 import br.com.sna.model.dao.Arquivo;
 import br.com.sna.model.service.ArquivoImplements;
 import java.util.List;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,6 +23,7 @@ public class ArquivoFrm extends javax.swing.JFrame {
     public ArquivoActionControl arquivoActionControl;
     public ArquivoImplements arquivoImplements;
     public List<Arquivo> arquivos;
+    public ListSelectionModel lsmArquivo;
 
     /**
      * Creates new form ArquivoFrm
@@ -396,6 +400,15 @@ public class ArquivoFrm extends javax.swing.JFrame {
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         tbArquivo.setModel(tmArquivo);
+        tbArquivo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        lsmArquivo = tbArquivo.getSelectionModel();
+        lsmArquivo.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    arquivoActionControl.tbArquivoLinhaSelecionada(tbArquivo);
+                }
+            }
+        });
         jScrollPane2.setViewportView(tbArquivo);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
