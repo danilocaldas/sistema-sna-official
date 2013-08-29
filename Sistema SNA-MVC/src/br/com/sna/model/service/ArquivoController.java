@@ -20,4 +20,7 @@ public interface ArquivoController {
      public void update(Arquivo arquivo);
      public void delete(Arquivo arquivo);
      public List<Arquivo> lista_arquivo();
+     public List<Arquivo> lista_arquivo_ano(String ano);
+     public List<Arquivo> lista_arquivo_ano_mes(String ano, String mes);
+
 }

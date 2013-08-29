@@ -46,8 +46,7 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
         arquivoImplements = new ArquivoImplements();
         conn = new ConnectionfactoryMYSQL();
         attachListener();
-        preencherListaPrestador();
-        preencherListaProcedimento();
+
     }
 
     public final void preencherListaPrestador() {
@@ -74,6 +73,11 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
         } catch (SQLException ex) {
             Logger.getLogger(ArquivoActionControl.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void limpaListas() {
+        lista_presta.removeAllElements();
+        lista_proce.removeAllElements();
     }
 
     public void atualizaPrestador() {
@@ -104,7 +108,15 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
         frm.getBtFinalizar().addActionListener(this);
         frm.getBtLimparPrestador().addActionListener(this);
         frm.getBtLimparProcedimento().addActionListener(this);
-
+        frm.getRadioAno().addActionListener(this);
+        frm.getRadioAnoMes().addActionListener(this);
+        frm.getRadioTodos().addActionListener(this);
+        frm.getRadioContCaixa().addActionListener(this);
+        frm.getRadioFolhaRosto().addActionListener(this);
+        frm.getBtPesquisarArquivo().addActionListener(this);
+        frm.getBtLimparPesquisaArquivo().addActionListener(this);
+        frm.getBtImprimirArquivo().addActionListener(this);
+        frm.getBtSairArquivoManu().addActionListener(this);
     }
 
     private void limparAreaPrestador() {
@@ -131,6 +143,9 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
         frm.getBtModificar().setEnabled(!enabled);
         frm.getBtExcluir().setEnabled(!enabled);
         frm.getBtFinalizar().setEnabled(enabled);
+        frm.getJlistPrestadores().setEnabled(enabled);
+        frm.getJlistProcedimentos().setEnabled(enabled);
+
     }
 
     private boolean verificarNumeroInserido() {
@@ -139,6 +154,17 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
                     "Atenção", JOptionPane.INFORMATION_MESSAGE);
             return false;
         } else {
+            return true;
+        }
+    }
+    
+    private boolean verificarAreaPreechidas(){
+        if("".equals(frm.getAreaTxConteudoPres().getText()) && 
+                "".equals(frm.getAreaTxConteuProce().getText())){
+            JOptionPane.showMessageDialog(frm, "Insira o prestador e procedimento que constaram na caixa!",
+                    "Atenção", JOptionPane.INFORMATION_MESSAGE);
+           return false;
+        }else{
             return true;
         }
     }
@@ -174,24 +200,24 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
         frm.getBtLimparProcedimento().setEnabled(true);
     }
 
-    private void habilitarBtSalvar() {
-        frm.getBtSalvar().setEnabled(true);
-    }
-
+//    private void habilitarBtSalvar() {
+//        frm.getBtSalvar().setEnabled(true);
+//    }
     private void desbilitarBtSalvar() {
         frm.getBtSalvar().setEnabled(false);
     }
 
-    private void habilitarBtAlterar() {
-        frm.getBtAlterar().setEnabled(true);
-    }
-
+//    private void habilitarBtAlterar() {
+//        frm.getBtAlterar().setEnabled(true);
+//    }
     private void desbilitarBtAlterar() {
         frm.getBtAlterar().setEnabled(false);
     }
 
     @Override
     public void prepararAlterar() {
+        preencherListaPrestador();
+        preencherListaProcedimento();
         enableButtonsToSaveAction();
         habilitarCamposDoFrm();
         limparCampos();
@@ -200,6 +226,8 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
 
     @Override
     public void preparaInserir() {
+        preencherListaPrestador();
+        preencherListaProcedimento();
         enableButtonsToSaveAction();
         habilitarCamposDoFrm();
         limparCampos();
@@ -214,10 +242,12 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
 
     @Override
     public void salvar() {
-        arquivoImplements.save(formToArquivo());
-        JOptionPane.showMessageDialog(frm, "Caixa salva!", "Salvar", JOptionPane.INFORMATION_MESSAGE);
-        limparTabela(arquivos);
-        frm.searchArquivoGeral();
+        if (verificarNumeroInserido() && verificarAreaPreechidas()) {
+            arquivoImplements.save(formToArquivo());
+            JOptionPane.showMessageDialog(frm, "Caixa salva!", "Salvar", JOptionPane.INFORMATION_MESSAGE);
+            limparTabela(arquivos);
+            searchArquivoGeral();
+        }
     }
 
     @Override
@@ -246,6 +276,15 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
             desbilitarBtSalvar();
             desabilitarCampoDoFrm();
             limparCampos();
+            limpaListas();
+        } else if (e.getActionCommand().equals("Pesquisar")) {
+            pesquisaTodos();
+            pesquisaArquivoAno();
+            pesquisaArquivoAnoMes();
+        } else if (e.getActionCommand().equals("Limpar")) {
+            limparTabela(arquivos);
+        } else if (e.getActionCommand().equals("Sair")) {
+            frm.dispose();
         }
     }
 
@@ -263,10 +302,68 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
 
         return arquivo;
     }
-    
+
     public void limparTabela(List<Arquivo> arquivos) {
         while (frm.tmArquivo.getRowCount() > 0) {
             frm.tmArquivo.removeRow(0);
+        }
+    }
+
+    private void pesquisaArquivoAno() {
+        if (frm.getRadioAno().isSelected()) {
+            limparTabela(arquivos);
+            searchArquivoAno();
+        }
+    }
+
+    private void pesquisaArquivoAnoMes() {
+        if (frm.getRadioAnoMes().isSelected()) {
+            limparTabela(arquivos);
+            searchArquivoAnoMes();
+        }
+    }
+
+    private void pesquisaTodos() {
+        if (frm.getRadioTodos().isSelected()) {
+            limparTabela(arquivos);
+            searchArquivoGeral();
+        }
+    }
+
+    public final void searchArquivoAno() {
+        arquivos = arquivoImplements.lista_arquivo_ano("" + frm.getBoxPesquisaAno().getYear() + "");
+        mostrarArquivos(arquivos);
+    }
+
+    public final void searchArquivoAnoMes() {
+        arquivos = arquivoImplements.lista_arquivo_ano_mes("%" + frm.getBoxPesquisaAno().getYear() + "%",
+                "%" + frm.getBoxPesquisaMes().getMonth() + "%");
+        mostrarArquivos(arquivos);
+    }
+
+    public final void searchArquivoGeral() {
+        arquivos = arquivoImplements.lista_arquivo();
+        mostrarArquivos(arquivos);
+    }
+
+    public void mostrarArquivos(List<Arquivo> arquivos) {
+        while (frm.tmArquivo.getRowCount() < 0) {
+            frm.tmArquivo.removeRow(0);
+        }
+        if (arquivos.size() == 0) {
+            JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum registro!");
+        } else {
+            String[] campos = new String[]{null, null, null, null, null, null};
+            for (int i = 0; i < arquivos.size(); i++) {
+                frm.tmArquivo.addRow(campos);
+                frm.tmArquivo.setValueAt(arquivos.get(i).getNumero(), i, 0);
+                frm.tmArquivo.setValueAt(arquivos.get(i).getAno(), i, 1);
+                frm.tmArquivo.setValueAt(arquivos.get(i).getMes(), i, 2);
+                frm.tmArquivo.setValueAt(arquivos.get(i).getCor(), i, 3);
+                frm.tmArquivo.setValueAt(arquivos.get(i).getPrestador_nome(), i, 4);
+                frm.tmArquivo.setValueAt(arquivos.get(i).getProcedimento_nome(), i, 5);
+
+            }
         }
     }
 }
