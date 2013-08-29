@@ -6,10 +6,8 @@ package br.com.sna.view;
 
 import br.com.sna.control.ArquivoActionControl;
 import br.com.sna.model.dao.Arquivo;
-import br.com.sna.model.dao.Producao;
 import br.com.sna.model.service.ArquivoImplements;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,11 +15,11 @@ import javax.swing.table.DefaultTableModel;
  * @author Danilo
  */
 public class ArquivoFrm extends javax.swing.JFrame {
-    public DefaultTableModel tmArquivo = new DefaultTableModel(null, new String[]
-    {"Numero","Ano","Mês","Cor" , "Prestador", "Procedimento"});
-    ArquivoActionControl arquivoActionControl;
-    ArquivoImplements arquivoImplements;
-    List<Arquivo> arquivos;
+
+    public DefaultTableModel tmArquivo = new DefaultTableModel(null, new String[]{"Numero", "Ano", "Mês", "Cor", "Prestador", "Procedimento"});
+    public ArquivoActionControl arquivoActionControl;
+    public ArquivoImplements arquivoImplements;
+    public List<Arquivo> arquivos;
 
     /**
      * Creates new form ArquivoFrm
@@ -30,37 +28,20 @@ public class ArquivoFrm extends javax.swing.JFrame {
         initComponents();
         arquivoActionControl = new ArquivoActionControl(this);
         arquivoImplements = new ArquivoImplements();
-        searchArquivoGeral();
-    }
-    
-    public final void searchArquivoGeral() {
-        
-        arquivos = arquivoImplements.lista_arquivo();
-        mostrarArquivos(arquivos);
-        
+        redimendionarTabela();
     }
 
-    public void mostrarArquivos(List<Arquivo> arquivos) {
-        while (tmArquivo.getRowCount() < 0) {
-            tmArquivo.removeRow(0);
-        }
-        if (arquivos.size() == 0) {
-            JOptionPane.showMessageDialog(null, "Não foi encontrado nenhum registro!");
-        } else {
-            String[] campos = new String[]{null, null, null, null, null, null};
-            for (int i = 0; i < arquivos.size(); i++) {
-                tmArquivo.addRow(campos);
-                tmArquivo.setValueAt(arquivos.get(i).getNumero(), i, 0);
-                tmArquivo.setValueAt(arquivos.get(i).getAno(), i, 1);
-                tmArquivo.setValueAt(arquivos.get(i).getMes(), i, 2);
-                tmArquivo.setValueAt(arquivos.get(i).getCor(), i, 3);
-                tmArquivo.setValueAt(arquivos.get(i).getPrestador_nome(), i, 4);
-                tmArquivo.setValueAt(arquivos.get(i).getProcedimento_nome(), i, 5);
+    public final void redimendionarTabela() {
+        tbArquivo.getColumnModel().getColumn(0).setPreferredWidth(1);
+        tbArquivo.getColumnModel().getColumn(1).setPreferredWidth(1);
+        tbArquivo.getColumnModel().getColumn(2).setPreferredWidth(8);
+        tbArquivo.getColumnModel().getColumn(3).setPreferredWidth(8);
+        tbArquivo.getColumnModel().getColumn(4).setPreferredWidth(180);
+        tbArquivo.getColumnModel().getColumn(5).setPreferredWidth(180);
 
-            }
-        }
     }
-    
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,6 +52,7 @@ public class ArquivoFrm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        grupo1 = new javax.swing.ButtonGroup();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -108,7 +90,26 @@ public class ArquivoFrm extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbArquivo = new javax.swing.JTable();
+        jPanel7 = new javax.swing.JPanel();
+        radioAnoMes = new javax.swing.JRadioButton();
+        radioAno = new javax.swing.JRadioButton();
+        radioContCaixa = new javax.swing.JRadioButton();
+        radioFolhaRosto = new javax.swing.JRadioButton();
+        radioTodos = new javax.swing.JRadioButton();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        boxPesquisaAno = new com.toedter.calendar.JYearChooser();
+        boxPesquisaMes = new com.toedter.calendar.JMonthChooser();
+        ftxtNumero = new javax.swing.JFormattedTextField();
+        jToolBar2 = new javax.swing.JToolBar();
+        btPesquisarArquivo = new javax.swing.JButton();
+        btLimparPesquisaArquivo = new javax.swing.JButton();
+        btImprimirArquivo = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        btSairArquivoManu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Arquivo");
@@ -164,8 +165,8 @@ public class ArquivoFrm extends javax.swing.JFrame {
                     .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(boxMesArquivamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtAnoArquivamento, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtAnoArquivamento, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                    .addComponent(boxMesArquivamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(25, 25, 25))
         );
         jPanel2Layout.setVerticalGroup(
@@ -361,7 +362,7 @@ public class ArquivoFrm extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btLimparPrestador, btLimparProcedimento});
@@ -375,15 +376,15 @@ public class ArquivoFrm extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btLimparPrestador, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
+                        .addGap(40, 40, 40)
                         .addComponent(btLimparProcedimento)
-                        .addGap(36, 36, 36))
+                        .addGap(18, 18, 18))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)))
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -394,21 +395,163 @@ public class ArquivoFrm extends javax.swing.JFrame {
 
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jTable1.setModel(tmArquivo);
-        jScrollPane2.setViewportView(jTable1);
+        tbArquivo.setModel(tmArquivo);
+        jScrollPane2.setViewportView(tbArquivo);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Modos de pesquisa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
+
+        grupo1.add(radioAnoMes);
+        radioAnoMes.setText("Pesquisar por ano e mês");
+
+        grupo1.add(radioAno);
+        radioAno.setText("Pesquisar por ano");
+
+        grupo1.add(radioContCaixa);
+        radioContCaixa.setText("Conteúdo da caixa");
+        radioContCaixa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioContCaixaActionPerformed(evt);
+            }
+        });
+
+        grupo1.add(radioFolhaRosto);
+        radioFolhaRosto.setText("Imprimir folha de rosto");
+
+        grupo1.add(radioTodos);
+        radioTodos.setSelected(true);
+        radioTodos.setText("Todas");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(radioAnoMes)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(radioTodos)
+                            .addComponent(radioAno))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(radioContCaixa)
+                            .addComponent(radioFolhaRosto))))
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radioTodos)
+                    .addComponent(radioContCaixa))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radioAno)
+                    .addComponent(radioFolhaRosto))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(radioAnoMes))
+        );
+
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Campos para pesquisa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
+
+        jLabel7.setText("Ano:");
+
+        jLabel8.setText("Mês:");
+
+        jLabel9.setText("Numero:");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(boxPesquisaAno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addComponent(boxPesquisaMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ftxtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel8Layout.createSequentialGroup()
+                            .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel7)
+                                .addComponent(boxPesquisaAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel8))
+                        .addComponent(boxPesquisaMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel9)
+                        .addComponent(ftxtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jToolBar2.setRollover(true);
+        jToolBar2.setBorderPainted(false);
+
+        btPesquisarArquivo.setText("Pesquisar");
+        btPesquisarArquivo.setFocusable(false);
+        btPesquisarArquivo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btPesquisarArquivo.setMaximumSize(new java.awt.Dimension(93, 40));
+        btPesquisarArquivo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btPesquisarArquivo);
+
+        btLimparPesquisaArquivo.setText("Limpar");
+        btLimparPesquisaArquivo.setFocusable(false);
+        btLimparPesquisaArquivo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btLimparPesquisaArquivo.setMaximumSize(new java.awt.Dimension(93, 40));
+        btLimparPesquisaArquivo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btLimparPesquisaArquivo);
+
+        btImprimirArquivo.setText("Imprimir");
+        btImprimirArquivo.setFocusable(false);
+        btImprimirArquivo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btImprimirArquivo.setMaximumSize(new java.awt.Dimension(93, 40));
+        btImprimirArquivo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btImprimirArquivo);
+        jToolBar2.add(jSeparator2);
+
+        btSairArquivoManu.setText("Sair");
+        btSairArquivoManu.setFocusable(false);
+        btSairArquivoManu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btSairArquivoManu.setMaximumSize(new java.awt.Dimension(93, 40));
+        btSairArquivoManu.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar2.add(btSairArquivoManu);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -416,15 +559,31 @@ public class ArquivoFrm extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(34, 34, 34))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(89, 89, 89)
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(295, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(162, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Manunteção", jPanel5);
@@ -433,18 +592,17 @@ public class ArquivoFrm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 647, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2)
+            .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jlistPrestadoresValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlistPrestadoresValueChanged
-
     }//GEN-LAST:event_jlistPrestadoresValueChanged
 
     private void jlistPrestadoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlistPrestadoresMouseClicked
@@ -457,7 +615,6 @@ public class ArquivoFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_jlistPrestadoresMouseClicked
 
     private void jlistProcedimentosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlistProcedimentosMousePressed
-
     }//GEN-LAST:event_jlistProcedimentosMousePressed
 
     private void jlistProcedimentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlistProcedimentosMouseClicked
@@ -468,6 +625,10 @@ public class ArquivoFrm extends javax.swing.JFrame {
         }
         areaTxConteuProce.append(buf.toString());
     }//GEN-LAST:event_jlistProcedimentosMouseClicked
+
+    private void radioContCaixaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioContCaixaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioContCaixaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -508,39 +669,59 @@ public class ArquivoFrm extends javax.swing.JFrame {
     private javax.swing.JTextArea areaTxConteudoPres;
     private javax.swing.JComboBox boxCorCaixa;
     private com.toedter.calendar.JMonthChooser boxMesArquivamento;
+    private com.toedter.calendar.JYearChooser boxPesquisaAno;
+    private com.toedter.calendar.JMonthChooser boxPesquisaMes;
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btFinalizar;
+    private javax.swing.JButton btImprimirArquivo;
     private javax.swing.JButton btIncluir;
+    private javax.swing.JButton btLimparPesquisaArquivo;
     private javax.swing.JToggleButton btLimparPrestador;
     private javax.swing.JToggleButton btLimparProcedimento;
     private javax.swing.JButton btModificar;
+    private javax.swing.JButton btPesquisarArquivo;
+    private javax.swing.JButton btSairArquivoManu;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JFormattedTextField ftxtNumero;
     private javax.swing.JFormattedTextField ftxtNumeroIdentificao;
+    private javax.swing.ButtonGroup grupo1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JToolBar jToolBar2;
     private javax.swing.JList jlistPrestadores;
     private javax.swing.JList jlistProcedimentos;
+    private javax.swing.JRadioButton radioAno;
+    private javax.swing.JRadioButton radioAnoMes;
+    private javax.swing.JRadioButton radioContCaixa;
+    private javax.swing.JRadioButton radioFolhaRosto;
+    private javax.swing.JRadioButton radioTodos;
+    private javax.swing.JTable tbArquivo;
     private com.toedter.calendar.JYearChooser txtAnoArquivamento;
     // End of variables declaration//GEN-END:variables
 
@@ -679,6 +860,100 @@ public class ArquivoFrm extends javax.swing.JFrame {
     public void setTmArquivo(DefaultTableModel tmArquivo) {
         this.tmArquivo = tmArquivo;
     }
-    
-    
+
+    public com.toedter.calendar.JYearChooser getBoxPesquisaAno() {
+        return boxPesquisaAno;
+    }
+
+    public void setBoxPesquisaAno(com.toedter.calendar.JYearChooser boxPesquisaAno) {
+        this.boxPesquisaAno = boxPesquisaAno;
+    }
+
+    public com.toedter.calendar.JMonthChooser getBoxPesquisaMes() {
+        return boxPesquisaMes;
+    }
+
+    public void setBoxPesquisaMes(com.toedter.calendar.JMonthChooser boxPesquisaMes) {
+        this.boxPesquisaMes = boxPesquisaMes;
+    }
+
+    public javax.swing.JFormattedTextField getFtxtNumero() {
+        return ftxtNumero;
+    }
+
+    public void setFtxtNumero(javax.swing.JFormattedTextField ftxtNumero) {
+        this.ftxtNumero = ftxtNumero;
+    }
+
+    public javax.swing.JRadioButton getRadioAno() {
+        return radioAno;
+    }
+
+    public void setRadioAno(javax.swing.JRadioButton radioAno) {
+        this.radioAno = radioAno;
+    }
+
+    public javax.swing.JRadioButton getRadioAnoMes() {
+        return radioAnoMes;
+    }
+
+    public void setRadioAnoMes(javax.swing.JRadioButton radioAnoMes) {
+        this.radioAnoMes = radioAnoMes;
+    }
+
+    public javax.swing.JRadioButton getRadioContCaixa() {
+        return radioContCaixa;
+    }
+
+    public void setRadioContCaixa(javax.swing.JRadioButton radioContCaixa) {
+        this.radioContCaixa = radioContCaixa;
+    }
+
+    public javax.swing.JRadioButton getRadioFolhaRosto() {
+        return radioFolhaRosto;
+    }
+
+    public void setRadioFolhaRosto(javax.swing.JRadioButton radioFolhaRosto) {
+        this.radioFolhaRosto = radioFolhaRosto;
+    }
+
+    public javax.swing.JRadioButton getRadioTodos() {
+        return radioTodos;
+    }
+
+    public void setRadioTodos(javax.swing.JRadioButton radioTodos) {
+        this.radioTodos = radioTodos;
+    }
+
+    public javax.swing.JButton getBtImprimirArquivo() {
+        return btImprimirArquivo;
+    }
+
+    public void setBtImprimirArquivo(javax.swing.JButton btImprimirArquivo) {
+        this.btImprimirArquivo = btImprimirArquivo;
+    }
+
+    public javax.swing.JButton getBtLimparPesquisaArquivo() {
+        return btLimparPesquisaArquivo;
+    }
+
+    public void setBtLimparPesquisaArquivo(javax.swing.JButton btLimparPesquisaArquivo) {
+        this.btLimparPesquisaArquivo = btLimparPesquisaArquivo;
+    }
+
+    public javax.swing.JButton getBtPesquisarArquivo() {
+        return btPesquisarArquivo;
+    }
+
+    public void setBtPesquisarArquivo(javax.swing.JButton btPesquisarArquivo) {
+        this.btPesquisarArquivo = btPesquisarArquivo;
+    }
+
+    public javax.swing.JButton getBtSairArquivoManu() {
+        return btSairArquivoManu;
+    }
+
+    public void setBtSairArquivoManu(javax.swing.JButton btSairArquivoManu) {
+        this.btSairArquivoManu = btSairArquivoManu;
+    }
 }
