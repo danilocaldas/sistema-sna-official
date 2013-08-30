@@ -248,11 +248,13 @@ public class ArquivoFrm extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setText("Procedimento(s):");
 
+        areaTxConteudoPres.setEditable(false);
         areaTxConteudoPres.setColumns(20);
         areaTxConteudoPres.setRows(5);
         areaTxConteudoPres.setEnabled(false);
         jScrollPane1.setViewportView(areaTxConteudoPres);
 
+        areaTxConteuProce.setEditable(false);
         areaTxConteuProce.setColumns(20);
         areaTxConteuProce.setRows(5);
         areaTxConteuProce.setEnabled(false);
@@ -969,4 +971,14 @@ public class ArquivoFrm extends javax.swing.JFrame {
     public void setBtSairArquivoManu(javax.swing.JButton btSairArquivoManu) {
         this.btSairArquivoManu = btSairArquivoManu;
     }
+
+    public javax.swing.JTable getTbArquivo() {
+        return tbArquivo;
+    }
+
+    public void setTbArquivo(javax.swing.JTable tbArquivo) {
+        this.tbArquivo = tbArquivo;
+    }
+    
+    
 }

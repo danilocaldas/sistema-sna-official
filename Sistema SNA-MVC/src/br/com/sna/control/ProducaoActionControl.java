@@ -145,7 +145,8 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
                 return true;
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(frm, "Preeencha A quantidade!", "Error" + ex, JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frm, "Preeencha A quantidade!", 
+                    "Error" + ex, JOptionPane.ERROR_MESSAGE);
         }
         return false;
     }
@@ -175,7 +176,8 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
     public void alterar() {
         if (verificarCamposDatas() && verificarQuantidade()) {
             producaoImplements.update(formToProducao());
-            JOptionPane.showMessageDialog(frm, "Producao Alterada", "Alterar", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(frm, "Producao Alterada", "Alterar", 
+                    JOptionPane.INFORMATION_MESSAGE);
             disableButtonsToSaveAction();
             limparCampos();
             desabilitarCampoDoFrm();
@@ -189,7 +191,8 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
     public void salvar() {
         if (verificarCamposDatas() && verificarQuantidade()) {
             producaoImplements.save(formToProducao());
-            JOptionPane.showMessageDialog(frm, "Producao Salva", "Salvar", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(frm, "Producao Salva", "Salvar",
+                    JOptionPane.INFORMATION_MESSAGE);
             disableButtonsToSaveAction();
             limparCampos();
             desabilitarCampoDoFrm();
@@ -206,7 +209,8 @@ public class ProducaoActionControl implements ControlInterface, ActionListener {
             int yes = JOptionPane.showConfirmDialog(frm, msg, titulo, JOptionPane.YES_NO_OPTION);
             if (yes == JOptionPane.YES_OPTION) {
                 producaoImplements.delete(formToProducao());
-                JOptionPane.showMessageDialog(frm, "Produção excluída", "Excluir", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(frm, "Produção excluída", 
+                        "Excluir", JOptionPane.INFORMATION_MESSAGE);
                 disableButtonsToSaveAction();
                 limparCampos();
                 desabilitarCampoDoFrm();

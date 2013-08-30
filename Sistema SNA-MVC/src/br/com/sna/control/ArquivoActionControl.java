@@ -146,7 +146,6 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
         frm.getBtFinalizar().setEnabled(enabled);
         frm.getJlistPrestadores().setEnabled(enabled);
         frm.getJlistProcedimentos().setEnabled(enabled);
-
     }
 
     private boolean verificarNumeroInserido() {
@@ -158,14 +157,14 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
             return true;
         }
     }
-    
-    private boolean verificarAreaPreechidas(){
-        if("".equals(frm.getAreaTxConteudoPres().getText()) && 
-                "".equals(frm.getAreaTxConteuProce().getText())){
+
+    private boolean verificarAreaPreechidas() {
+        if ("".equals(frm.getAreaTxConteudoPres().getText())
+                || "".equals(frm.getAreaTxConteuProce().getText())) {
             JOptionPane.showMessageDialog(frm, "Insira o prestador e procedimento que constaram na caixa!",
                     "Atenção", JOptionPane.INFORMATION_MESSAGE);
-           return false;
-        }else{
+            return false;
+        } else {
             return true;
         }
     }
@@ -195,22 +194,15 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
         frm.getTxtAnoArquivamento().setEnabled(true);
         frm.getBoxMesArquivamento().setEnabled(true);
         frm.getBoxCorCaixa().setEnabled(true);
-        frm.getAreaTxConteudoPres().setEnabled(true);
-        frm.getAreaTxConteuProce().setEnabled(true);
+
         frm.getBtLimparPrestador().setEnabled(true);
         frm.getBtLimparProcedimento().setEnabled(true);
     }
 
-//    private void habilitarBtSalvar() {
-//        frm.getBtSalvar().setEnabled(true);
-//    }
     private void desbilitarBtSalvar() {
         frm.getBtSalvar().setEnabled(false);
     }
 
-//    private void habilitarBtAlterar() {
-//        frm.getBtAlterar().setEnabled(true);
-//    }
     private void desbilitarBtAlterar() {
         frm.getBtAlterar().setEnabled(false);
     }
@@ -221,7 +213,6 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
         preencherListaProcedimento();
         enableButtonsToSaveAction();
         habilitarCamposDoFrm();
-        limparCampos();
         frm.getBtAlterar().setEnabled(true);
     }
 
@@ -237,8 +228,23 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
 
     @Override
     public void alterar() {
-        arquivoImplements.update(formToArquivo());
-        JOptionPane.showMessageDialog(frm, "Caixa alterada!", "Alterar", JOptionPane.INFORMATION_MESSAGE);
+        if (verificarNumeroInserido() && verificarAreaPreechidas()) {
+            arquivoImplements.update(formToArquivo());
+            JOptionPane.showMessageDialog(frm, "Caixa alterada!", "Alterar", JOptionPane.INFORMATION_MESSAGE);
+            comportamentoFrmAposCrud();
+
+        }
+    }
+
+    public void comportamentoFrmAposCrud() {
+        limparCampos();
+        desabilitarCampoDoFrm();
+        disableButtonsToSaveAction();
+        limpaListas();
+        desbilitarBtSalvar();
+        desbilitarBtAlterar();
+        limparTabela(arquivos);
+        searchArquivoGeral();
     }
 
     @Override
@@ -246,14 +252,30 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
         if (verificarNumeroInserido() && verificarAreaPreechidas()) {
             arquivoImplements.save(formToArquivo());
             JOptionPane.showMessageDialog(frm, "Caixa salva!", "Salvar", JOptionPane.INFORMATION_MESSAGE);
-            limparTabela(arquivos);
-            searchArquivoGeral();
+            comportamentoFrmAposCrud();
         }
     }
 
     @Override
     public void excluir() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(frm.getTbArquivo().getSelectedRow() != -1){
+            
+        String msg = "Deseja realmente excluir esta caixa?";
+        String titulo = "Confimação";
+        int yes = JOptionPane.showConfirmDialog(frm, msg, titulo, JOptionPane.YES_NO_OPTION);
+        if (yes == JOptionPane.YES_OPTION) {
+            arquivoImplements.delete(formToArquivo());
+            JOptionPane.showMessageDialog(frm, "Caixa excluída",
+                    "Excluir", JOptionPane.INFORMATION_MESSAGE);
+            disableButtonsToSaveAction();
+            limparCampos();
+            desabilitarCampoDoFrm();
+            limparTabela(arquivos);
+            searchArquivoGeral();
+        }
+        }else{
+            JOptionPane.showMessageDialog(frm, "Selecione um registro!");
+        }
     }
 
     @Override
@@ -286,6 +308,8 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
             limparTabela(arquivos);
         } else if (e.getActionCommand().equals("Sair")) {
             frm.dispose();
+        } else if(e.getActionCommand().equals("Excluir")){
+            excluir();
         }
     }
 
@@ -367,7 +391,7 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
             }
         }
     }
-    
+
     public void tbArquivoLinhaSelecionada(JTable tb) {
         if (tb.getSelectedRow() != -1) {
             frm.getFtxtNumeroIdentificao().setValue(arquivos.get(tb.getSelectedRow()).getNumero());
@@ -378,10 +402,8 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
             frm.getAreaTxConteuProce().setText(arquivos.get(tb.getSelectedRow()).getProcedimento_nome());
         } else {
             frm.getFtxtNumero().setText("");
-            //frm.getBoxPesquisaAno().setYear(0);
-            //frm.getBoxMesArquivamento().setMonth(0);
             frm.getAreaTxConteudoPres().setText("");
-            frm.getAreaTxConteuProce().setText(""); 
+            frm.getAreaTxConteuProce().setText("");
         }
     }
 }
