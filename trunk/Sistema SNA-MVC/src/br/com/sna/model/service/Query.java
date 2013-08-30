@@ -45,7 +45,7 @@ public class Query {
     String consultaArquivoAno = "SELECT * FROM CAIXA WHERE ANO LIKE ? ORDER BY NUMERO";
     String consultaArquivoAnoMes = "SELECT * FROM CAIXA WHERE ANO LIKE ? AND MES LIKE ? ORDER BY NUMERO";
     
-    String excluirCaixa = "DELETE FROM CAIXA WHERE NUMERO LIKE ? AND ANO LIKE ?";
+    String excluirCaixa = "DELETE FROM CAIXA WHERE NUMERO = ? AND ANO = ?";
     String updateArquivo = "UPDATE CAIXA SET ANO = ?,MES = ?,COR = ?,PRESTADOR_NOME = ?,PROCEDIMENTO_NOME = ? WHERE NUMERO = ?";
     //SOMA PRODUCAO
     String somaProducao = "SELECT SUM(quantidade) FROM PRODUCAO GROUP BY FUNCIONARIO_NOME LIKE ?";

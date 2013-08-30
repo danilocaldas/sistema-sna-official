@@ -63,11 +63,11 @@ public class ArquivoImplements implements ArquivoController {
 
     @Override
     public void delete(Arquivo arquivo) {
-        int index = 0;
+        
         try {
             pstmt = bdConnection.conectar().prepareStatement(query.excluirCaixa);
-            pstmt.setInt(++index, arquivo.getNumero());
-            pstmt.setString(++index, arquivo.getAno());
+            pstmt.setInt(1, arquivo.getNumero());
+            pstmt.setString(2, arquivo.getAno());
             pstmt.executeUpdate();
             bdConnection.desconectar();
         } catch (SQLException ex) {
