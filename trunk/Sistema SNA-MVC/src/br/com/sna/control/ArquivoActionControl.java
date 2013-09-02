@@ -209,11 +209,15 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
 
     @Override
     public void prepararAlterar() {
-        preencherListaPrestador();
-        preencherListaProcedimento();
-        enableButtonsToSaveAction();
-        habilitarCamposDoFrm();
-        frm.getBtAlterar().setEnabled(true);
+        if (frm.getTbArquivo().getSelectedRow() != -1) {
+            preencherListaPrestador();
+            preencherListaProcedimento();
+            enableButtonsToSaveAction();
+            habilitarCamposDoFrm();
+            frm.getBtAlterar().setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(frm, "Selecione um registro!");
+        }
     }
 
     @Override
@@ -232,7 +236,6 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
             arquivoImplements.update(formToArquivo());
             JOptionPane.showMessageDialog(frm, "Caixa alterada!", "Alterar", JOptionPane.INFORMATION_MESSAGE);
             comportamentoFrmAposCrud();
-
         }
     }
 
@@ -244,7 +247,7 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
         desbilitarBtSalvar();
         desbilitarBtAlterar();
         limparTabela(arquivos);
-        searchArquivoGeral();
+
     }
 
     @Override
@@ -255,25 +258,37 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
             comportamentoFrmAposCrud();
         }
     }
+    
+    public boolean compTxtParaExclusao(){
+        if(frm.getTbArquivo().getSelectedRow() != -1){
+            frm.getFtxtNumeroIdentificao().setEnabled(true);
+            frm.getFtxtNumeroIdentificao().setEditable(false);
+            frm.getFtxtNumeroIdentificao().setEnabled(true);
+            frm.getFtxtNumeroIdentificao().setEditable(false);
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     @Override
     public void excluir() {
-        if(frm.getTbArquivo().getSelectedRow() != -1){
-            
-        String msg = "Deseja realmente excluir esta caixa?";
-        String titulo = "Confimação";
-        int yes = JOptionPane.showConfirmDialog(frm, msg, titulo, JOptionPane.YES_NO_OPTION);
-        if (yes == JOptionPane.YES_OPTION) {
-            arquivoImplements.delete(formToArquivo());
-            JOptionPane.showMessageDialog(frm, "Caixa excluída",
-                    "Excluir", JOptionPane.INFORMATION_MESSAGE);
-            disableButtonsToSaveAction();
-            limparCampos();
-            desabilitarCampoDoFrm();
-            limparTabela(arquivos);
-            searchArquivoGeral();
-        }
-        }else{
+        if (compTxtParaExclusao()) {
+            String msg = "Deseja realmente excluir esta caixa?";
+            String titulo = "Confimação";
+            int yes = JOptionPane.showConfirmDialog(frm, msg, titulo, JOptionPane.YES_NO_OPTION);
+            if (yes == JOptionPane.YES_OPTION) {
+                arquivoImplements.delete(formToArquivo());
+                JOptionPane.showMessageDialog(frm, "Caixa excluída",
+                        "Excluir", JOptionPane.INFORMATION_MESSAGE);
+                
+                limparCampos();
+                disableButtonsToSaveAction();
+                desabilitarCampoDoFrm();
+                limparTabela(arquivos);
+               // frm.getFtxtNumeroIdentificao().setText("");
+            }
+        } else {
             JOptionPane.showMessageDialog(frm, "Selecione um registro!");
         }
     }
@@ -308,7 +323,7 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
             limparTabela(arquivos);
         } else if (e.getActionCommand().equals("Sair")) {
             frm.dispose();
-        } else if(e.getActionCommand().equals("Excluir")){
+        } else if (e.getActionCommand().equals("Excluir")) {
             excluir();
         }
     }
@@ -320,7 +335,7 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
             arquivo.setNumero(Integer.parseInt(frm.getFtxtNumeroIdentificao().getText()));
         }
         arquivo.setAno(String.valueOf(frm.getTxtAnoArquivamento().getYear()));
-        arquivo.setMes(String.valueOf(frm.getBoxMesArquivamento().getMonth()).toString());
+        arquivo.setMes(frm.getBoxMesArquivamento().getSelectedItem().toString());
         arquivo.setCor(frm.getBoxCorCaixa().getSelectedItem().toString());
         arquivo.setPrestador_nome(frm.getAreaTxConteudoPres().getText());
         arquivo.setProcedimento_nome(frm.getAreaTxConteuProce().getText());
@@ -362,7 +377,7 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
 
     public final void searchArquivoAnoMes() {
         arquivos = arquivoImplements.lista_arquivo_ano_mes("%" + frm.getBoxPesquisaAno().getYear() + "%",
-                "%" + frm.getBoxPesquisaMes().getMonth() + "%");
+                "%" + frm.getBoxMesArquivamentoManu().getSelectedItem().toString() + "%");
         mostrarArquivos(arquivos);
     }
 
@@ -396,7 +411,7 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
         if (tb.getSelectedRow() != -1) {
             frm.getFtxtNumeroIdentificao().setValue(arquivos.get(tb.getSelectedRow()).getNumero());
             frm.getBoxPesquisaAno().setYear(Integer.valueOf(arquivos.get(tb.getSelectedRow()).getAno()));
-            frm.getBoxMesArquivamento().setMonth(Integer.valueOf(arquivos.get(tb.getSelectedRow()).getMes()));
+            frm.getBoxMesArquivamento().setSelectedItem(arquivos.get(tb.getSelectedRow()).getMes());
             frm.getBoxCorCaixa().setSelectedItem(arquivos.get(tb.getSelectedRow()).getCor());
             frm.getAreaTxConteudoPres().setText(arquivos.get(tb.getSelectedRow()).getPrestador_nome());
             frm.getAreaTxConteuProce().setText(arquivos.get(tb.getSelectedRow()).getProcedimento_nome());

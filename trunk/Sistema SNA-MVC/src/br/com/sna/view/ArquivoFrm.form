@@ -111,7 +111,7 @@
                                   <Component id="jPanel4" max="32767" attributes="0"/>
                                   <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="7" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="jToolBar1" min="-2" pref="40" max="-2" attributes="0"/>
@@ -175,10 +175,10 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="txtAnoArquivamento" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="boxMesArquivamento" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="boxMesArquivamento" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" attributes="0">
@@ -244,11 +244,6 @@
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                 </Component>
-                <Component class="com.toedter.calendar.JMonthChooser" name="boxMesArquivamento">
-                  <Properties>
-                    <Property name="enabled" type="boolean" value="false"/>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JComboBox" name="boxCorCaixa">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -260,6 +255,27 @@
                         <StringItem index="4" value="Vermelho"/>
                         <StringItem index="5" value="Preto"/>
                         <StringItem index="6" value="outros"/>
+                      </StringArray>
+                    </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="boxMesArquivamento">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="12">
+                        <StringItem index="0" value="JANEIRO"/>
+                        <StringItem index="1" value="FEVEREIRO"/>
+                        <StringItem index="2" value="MAR&#xc7;O"/>
+                        <StringItem index="3" value="ABRIL"/>
+                        <StringItem index="4" value="MAIO"/>
+                        <StringItem index="5" value="JUNHO"/>
+                        <StringItem index="6" value="JULHO"/>
+                        <StringItem index="7" value="AGOSTO"/>
+                        <StringItem index="8" value="SETEMBRO"/>
+                        <StringItem index="9" value="OUTUBRO"/>
+                        <StringItem index="10" value="NOVEMBRO"/>
+                        <StringItem index="11" value="DEZEMBRO"/>
                       </StringArray>
                     </Property>
                     <Property name="enabled" type="boolean" value="false"/>
@@ -597,10 +613,10 @@
                           <Component id="jPanel8" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPanel6" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jToolBar2" min="-2" pref="40" max="-2" attributes="0"/>
-                      <EmptySpace pref="162" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -620,7 +636,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" pref="583" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -629,7 +645,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane2" pref="121" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" pref="272" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -782,17 +798,14 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="boxPesquisaAno" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="boxPesquisaMes" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="boxPesquisaAno" pref="91" max="32767" attributes="0"/>
+                              <Component id="boxMesArquivamentoManu" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
@@ -807,16 +820,16 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                          <Component id="boxPesquisaAno" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                      <Component id="boxPesquisaAno" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="boxPesquisaMes" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="boxMesArquivamentoManu" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -846,9 +859,27 @@
                 </Component>
                 <Component class="com.toedter.calendar.JYearChooser" name="boxPesquisaAno">
                 </Component>
-                <Component class="com.toedter.calendar.JMonthChooser" name="boxPesquisaMes">
-                </Component>
                 <Component class="javax.swing.JFormattedTextField" name="ftxtNumero">
+                </Component>
+                <Component class="javax.swing.JComboBox" name="boxMesArquivamentoManu">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="12">
+                        <StringItem index="0" value="JANEIRO"/>
+                        <StringItem index="1" value="FEVEREIRO"/>
+                        <StringItem index="2" value="MAR&#xc7;O"/>
+                        <StringItem index="3" value="ABRIL"/>
+                        <StringItem index="4" value="MAIO"/>
+                        <StringItem index="5" value="JUNHO"/>
+                        <StringItem index="6" value="JULHO"/>
+                        <StringItem index="7" value="AGOSTO"/>
+                        <StringItem index="8" value="SETEMBRO"/>
+                        <StringItem index="9" value="OUTUBRO"/>
+                        <StringItem index="10" value="NOVEMBRO"/>
+                        <StringItem index="11" value="DEZEMBRO"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
