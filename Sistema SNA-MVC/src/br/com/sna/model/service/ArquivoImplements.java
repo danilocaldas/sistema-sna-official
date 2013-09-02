@@ -11,8 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,9 +36,17 @@ public class ArquivoImplements implements ArquivoController {
             pstmt.setString(++index, arquivo.getPrestador_nome());
             pstmt.setString(++index, arquivo.getProcedimento_nome());
             pstmt.executeUpdate();
-            bdConnection.desconectar();
         } catch (SQLException ex) {
-            Logger.getLogger(ArquivoImplements.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao inserir o objeto arquivo. "
+                    + "Erro :" + ex.getMessage());
+        } finally {
+            try {
+                pstmt.close();
+                bdConnection.desconectar();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao fechar a operação de inserir o objeto arquivo. "
+                        + "Erro :" + ex.getMessage());
+            }
         }
     }
 
@@ -55,23 +62,38 @@ public class ArquivoImplements implements ArquivoController {
             pstmt.setString(++index, arquivo.getProcedimento_nome());
             pstmt.setInt(++index, arquivo.getNumero());
             pstmt.executeUpdate();
-            bdConnection.desconectar();
         } catch (SQLException ex) {
-            Logger.getLogger(ArquivoImplements.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao alterar o objeto arquivo. "
+                    + "Erro :" + ex.getMessage());
+        } finally {
+            try {
+                pstmt.close();
+                bdConnection.desconectar();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao fechar a operação de alteração do objeto arquivo. "
+                        + "Erro :" + ex.getMessage());
+            }
         }
     }
 
     @Override
     public void delete(Arquivo arquivo) {
-        
         try {
             pstmt = bdConnection.conectar().prepareStatement(query.excluirCaixa);
             pstmt.setInt(1, arquivo.getNumero());
             pstmt.setString(2, arquivo.getAno());
             pstmt.executeUpdate();
-            bdConnection.desconectar();
         } catch (SQLException ex) {
-            Logger.getLogger(ArquivoImplements.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao excluir o objeto arquivo. "
+                    + "Erro :" + ex.getMessage());
+        } finally {
+            try {
+                pstmt.close();
+                bdConnection.desconectar();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao fechar a operação de exclusão do objeto arquivo. "
+                        + "Erro :" + ex.getMessage());
+            }
         }
     }
 
@@ -80,23 +102,29 @@ public class ArquivoImplements implements ArquivoController {
         List<Arquivo> arquivos = new ArrayList<Arquivo>();
         try {
             pstmt = bdConnection.conectar().prepareStatement(query.consultaArquivo);
-            retornoParaTabela();
             rset = pstmt.executeQuery();
             Arquivo arq;
             while (rset.next()) {
                 arq = new Arquivo();
-
                 arq.setNumero(rset.getInt("numero"));
                 arq.setAno(rset.getString("ano"));
                 arq.setMes(rset.getString("mes"));
                 arq.setCor(rset.getString("cor"));
                 arq.setPrestador_nome(rset.getString("prestador_nome"));
                 arq.setProcedimento_nome(rset.getString("procedimento_nome"));
-
                 arquivos.add(arq);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ArquivoImplements.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao listar o objeto arquivo. "
+                    + "Erro :" + ex.getMessage());
+        } finally {
+            try {
+                pstmt.close();
+                bdConnection.desconectar();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao fechar a operação de listagem do objeto arquivo. "
+                        + "Erro :" + ex.getMessage());
+            }
         }
         return arquivos;
     }
@@ -120,7 +148,16 @@ public class ArquivoImplements implements ArquivoController {
                 arquivos.add(arq);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ArquivoImplements.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao listar o objeto arquivo. "
+                    + "Erro :" + ex.getMessage());
+        } finally {
+            try {
+                pstmt.close();
+                bdConnection.desconectar();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao fechar a operação de listagem do objeto arquivo. "
+                        + "Erro :" + ex.getMessage());
+            }
         }
         return arquivos;
     }
@@ -145,13 +182,17 @@ public class ArquivoImplements implements ArquivoController {
                 arquivos.add(arq);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ArquivoImplements.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao listar o objeto arquivo. "
+                    + "Erro :" + ex.getMessage());
+        } finally {
+            try {
+                pstmt.close();
+                bdConnection.desconectar();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao fechar a operação de listagem do objeto arquivo. "
+                        + "Erro :" + ex.getMessage());
+            }
         }
         return arquivos;
-    }
-
-    public void retornoParaTabela() {
-       
-
     }
 }
