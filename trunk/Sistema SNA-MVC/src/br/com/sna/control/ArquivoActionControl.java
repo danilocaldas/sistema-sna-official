@@ -182,8 +182,7 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
         frm.getTxtAnoArquivamento().setEnabled(false);
         frm.getBoxMesArquivamento().setEnabled(false);
         frm.getBoxCorCaixa().setEnabled(false);
-        frm.getAreaTxConteudoPres().setEnabled(false);
-        frm.getAreaTxConteuProce().setEnabled(false);
+        
         frm.getBtLimparPrestador().setEnabled(false);
         frm.getBtLimparProcedimento().setEnabled(false);
     }
@@ -194,7 +193,6 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
         frm.getTxtAnoArquivamento().setEnabled(true);
         frm.getBoxMesArquivamento().setEnabled(true);
         frm.getBoxCorCaixa().setEnabled(true);
-
         frm.getBtLimparPrestador().setEnabled(true);
         frm.getBtLimparProcedimento().setEnabled(true);
     }
@@ -258,15 +256,15 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
             comportamentoFrmAposCrud();
         }
     }
-    
-    public boolean compTxtParaExclusao(){
-        if(frm.getTbArquivo().getSelectedRow() != -1){
+
+    public boolean compTxtParaExclusao() {
+        if (frm.getTbArquivo().getSelectedRow() != -1) {
             frm.getFtxtNumeroIdentificao().setEnabled(true);
             frm.getFtxtNumeroIdentificao().setEditable(false);
             frm.getFtxtNumeroIdentificao().setEnabled(true);
             frm.getFtxtNumeroIdentificao().setEditable(false);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -281,12 +279,12 @@ public class ArquivoActionControl implements ControlInterface, ActionListener {
                 arquivoImplements.delete(formToArquivo());
                 JOptionPane.showMessageDialog(frm, "Caixa excluída",
                         "Excluir", JOptionPane.INFORMATION_MESSAGE);
-                
+
                 limparCampos();
                 disableButtonsToSaveAction();
                 desabilitarCampoDoFrm();
                 limparTabela(arquivos);
-               // frm.getFtxtNumeroIdentificao().setText("");
+                // frm.getFtxtNumeroIdentificao().setText("");
             }
         } else {
             JOptionPane.showMessageDialog(frm, "Selecione um registro!");
