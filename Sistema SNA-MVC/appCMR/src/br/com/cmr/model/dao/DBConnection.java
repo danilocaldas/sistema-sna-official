@@ -111,4 +111,29 @@ public class DBConnection {
             close(connection, stmt, null);
         }
     }
+    
+    public static void createTableProducao() {
+        Connection connection = getConnection();
+        PreparedStatement stmt = null;
+        String sql = "CREATE TABLE IF NOT EXISTS producao (\n"
+                + "  ID bigint(20) NOT NULL AUTO_INCREMENT,\n"
+                + "  funcionario VARCHAR(50) NOT NULL,\n"
+                + "  prestador VARCHAR(50) NOT NULL,\n"
+                + "  procedimento VARCHAR(50) NOT NULL,\n"
+                + "  data Date NOT NULL,\n"
+                + "  data_entrada Date NOT NULL,\n"
+                + "  data_digitacao Date NOT NULL,\n"
+                + "  quantidade VARCHAR(50) NOT NULL,\n"
+                + "PRIMARY KEY (ID)\n"
+                + ")";
+        try {
+            stmt = connection.prepareStatement(sql);
+            stmt.execute();
+            System.out.println("Create Tables Producao Ok!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(connection, stmt, null);
+        }
+    }
 }

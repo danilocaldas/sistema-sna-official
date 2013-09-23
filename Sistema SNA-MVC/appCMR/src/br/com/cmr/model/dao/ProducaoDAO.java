@@ -18,9 +18,9 @@ import java.util.List;
  */
 public class ProducaoDAO implements IProducaoDAO {
 
-    private static final String SQL_INSERT = "insert into PRODUCAO (FUNCIONARIO, PRESTADOR, PROCEDIMENTO"
-            + "DATA, DATA_ENTRADA, DATA_DIGITACAO, QUANTIDADE)values(?,?,?,?,?,?,?)";
-    private static final String SQL_UPDATE = "UPDATE FROM PRODUCAO SET FUNCIONARIO = ?, PRESTADOR = ?, PROCEDIMENTO = ?,"
+    private static final String SQL_INSERT = "insert into PRODUCAO (FUNCIONARIO, PRESTADOR, PROCEDIMENTO,"
+            + "DATA, DATA_ENTRADA, DATA_DIGITACAO, QUANTIDADE) values(?,?,?,?,?,?,?)";
+    private static final String SQL_UPDATE = "UPDATE PRODUCAO SET FUNCIONARIO = ?, PRESTADOR = ?, PROCEDIMENTO = ?,"
             + "DATA = ?, DATA_ENTRADA = ?, DATA_DIGITACAO = ?, QUANTIDADE = ? WHERE ID = ?";
     private static final String SQL_DELETE = "DELETE FROM PRODUCAO WHERE ID = ?";
     private static final String SQL_LISTAR = "SELECT * FROM PRODUCAO";
